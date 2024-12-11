@@ -17,8 +17,11 @@ class _RegisterPageState extends State<RegisterPage> {
         title: Text("Register Page", style: TextStyle(color: Colors.white)),
       ),
       body: Container(
-          child: Text("This is Registration Page",
-              style: TextStyle(color: Colors.blue))),
+          width: double.infinity,
+          height: double.infinity,
+          child: Center(
+              child: Text("This is Registration Page",
+                  style: TextStyle(color: Colors.blue)))),
     );
   }
 }

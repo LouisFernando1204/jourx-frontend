@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  final String username;
+  final dynamic username;
 
   const HomePage({super.key, required this.username});
 
