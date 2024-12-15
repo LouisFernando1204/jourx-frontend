@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:jourx/data/network/base_api_services.dart';
 import 'package:jourx/shared/shared.dart';
 import 'package:http/http.dart' as http;
-import 'package:jourx/app_exception.dart';
+import 'package:jourx/data/app_exception.dart';
 
 class NetworkApiServices implements BaseApiServices {
   @override
