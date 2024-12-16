@@ -149,8 +149,7 @@ class _LoginPageState extends State<LoginPage> {
                                 const SnackBar(
                                   content: Text(
                                       'Email atau password tidak boleh kosong!'),
-                                  backgroundColor: Colors
-                                      .red, 
+                                  backgroundColor: Colors.red,
                                 ),
                               );
                             }
@@ -216,7 +215,10 @@ class _LoginPageState extends State<LoginPage> {
               child: Center(
                 child: GestureDetector(
                   onTap: () {
-                    // Add your registration logic here
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RegisterPage()));
                   },
                   child: RichText(
                     text: TextSpan(
@@ -224,7 +226,7 @@ class _LoginPageState extends State<LoginPage> {
                           fontWeight: FontWeight.normal,
                           fontSize: 14,
                           color: Colors.black), // Default color
-                      children: <TextSpan>[
+                      children: const <TextSpan>[
                         TextSpan(
                           text: "Belum punya akun? ",
                           style: TextStyle(color: Colors.black),

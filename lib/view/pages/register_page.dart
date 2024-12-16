@@ -9,14 +9,14 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   LoginViewmodel loginViewmodel = LoginViewmodel();
-  
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController birthdateController = TextEditingController();
-  
+
   String? selectedGender;
-  
+
   // Date picker function
   Future<void> _selectDate(BuildContext context) async {
     DateTime? pickedDate = await showDatePicker(
@@ -61,7 +61,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 color: Colors.white,
               ),
             ),
-            SingleChildScrollView(  // Wrap entire content inside SingleChildScrollView
+            SingleChildScrollView(
+              // Wrap entire content inside SingleChildScrollView
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),
@@ -100,7 +101,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         ),
                         const SizedBox(height: 24.0),
-                        
+
                         // Email Field
                         Text(
                           "Email",
@@ -111,10 +112,11 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         ),
                         const SizedBox(height: 12.0),
-                        _buildTextField(emailController, 'Isi email dan mulai ceritamu!'),
+                        _buildTextField(
+                            emailController, 'Isi email dan mulai ceritamu!'),
 
                         const SizedBox(height: 16.0),
-                        
+
                         // Username Field
                         Text(
                           "Username",
@@ -125,7 +127,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         ),
                         const SizedBox(height: 12.0),
-                        _buildTextField(usernameController, 'Isi username unik kamu!'),
+                        _buildTextField(
+                            usernameController, 'Isi username unik kamu!'),
 
                         const SizedBox(height: 16.0),
 
@@ -156,7 +159,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         GestureDetector(
                           onTap: () => _selectDate(context),
                           child: AbsorbPointer(
-                            child: _buildTextField(birthdateController, 'Pilih tanggal lahir'),
+                            child: _buildTextField(
+                                birthdateController, 'Pilih tanggal lahir'),
                           ),
                         ),
                         const SizedBox(height: 16.0),
@@ -174,8 +178,10 @@ class _RegisterPageState extends State<RegisterPage> {
                         DropdownButtonFormField<String>(
                           value: selectedGender,
                           items: [
-                            DropdownMenuItem(child: Text("Laki-laki"), value: "Laki-laki"),
-                            DropdownMenuItem(child: Text("Perempuan"), value: "Perempuan"),
+                            DropdownMenuItem(
+                                child: Text("Laki-laki"), value: "Laki-laki"),
+                            DropdownMenuItem(
+                                child: Text("Perempuan"), value: "Perempuan"),
                           ],
                           onChanged: (value) {
                             setState(() {
@@ -199,7 +205,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.orange,
-                              padding: const EdgeInsets.symmetric(vertical: 14.0),
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 14.0),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
@@ -240,10 +247,37 @@ class _RegisterPageState extends State<RegisterPage> {
 
                         const SizedBox(height: 16.0),
 
+                        Center(
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const LoginPage()));
+                            },
+                            child: RichText(
+                              text: TextSpan(
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 14,
+                                    color: Colors.black), // Default color
+                                children: const <TextSpan>[
+                                  TextSpan(
+                                    text: "Sudah punya akun? ",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                  TextSpan(
+                                    text: "Daftar di sini.",
+                                    style: TextStyle(color: Colors.orange),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                  
                 ),
               ),
             ),

@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const RegisterPage(), // Mengganti halaman utama menjadi PricePage
+      home: const LoginPage(), // Mengganti halaman utama menjadi PricePage
     );
   }
 }
