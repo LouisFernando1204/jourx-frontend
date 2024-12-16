@@ -253,7 +253,6 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  // Helper method for text fields
   Widget _buildTextField(TextEditingController controller, String hint) {
     return Container(
       decoration: BoxDecoration(
