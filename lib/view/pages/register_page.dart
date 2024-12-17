@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'pages.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});

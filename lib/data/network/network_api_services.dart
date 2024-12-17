@@ -2,46 +2,43 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:jourx/data/app_exception.dart';
 import 'package:jourx/data/network/base_api_services.dart';
 import 'package:jourx/shared/shared.dart';
 import 'package:http/http.dart' as http;
-import 'package:jourx/app_exception.dart';
 
 class NetworkApiServices implements BaseApiServices {
   @override
-  Future getApiResponse(String endpoint) async {
+  Future<dynamic> getApiResponse(String endpoint) async {
     dynamic responseJson;
     try {
-      final response = await http
-          .get(Uri.https(Const.baseUrl, endpoint), headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'key': Const.apiKey,
-      });
+      final response = await http.get(Uri.https(Const.baseUrl, endpoint),
+          headers: <String, String>{'Content-Type': 'application/json;'});
       responseJson = returnResponse(response);
+      return responseJson;
     } on SocketException {
       throw NoInternetException('');
     } on TimeoutException {
-      throw FetchDataException('Network request time out!');
+      throw FetchDataException('Network request timeout!');
     }
-
-    return responseJson;
   }
 
   @override
   Future<dynamic> postApiResponse(String endpoint, dynamic data) async {
     dynamic responseJson;
     try {
+      print("DATA");
       print(data);
       final response = await http.post(
         Uri.https(Const.baseUrl, endpoint),
         headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'key': Const.apiKey,
+          'Content-Type': 'application/json; charset=UTF-8'
         },
         body: jsonEncode(data),
       );
       responseJson = returnResponse(response);
       print("RESPONSE");
+      print(responseJson);
       return responseJson;
     } on SocketException {
       throw NoInternetException('No internet connection!');
@@ -61,12 +58,13 @@ class NetworkApiServices implements BaseApiServices {
         return responseJson;
       case 400:
         throw BadRequestException(response.body.toString());
-      case 500:
       case 404:
-        throw UnauthorisedException(response.body.toString());
+        throw NotFoundException('Resource not found: ${response.body}');
+      case 500:
+        throw ServerErrorException('Server error: ${response.body}');
       default:
         throw FetchDataException(
-            'Error occured while communicating with server');
+            'Error occurred while communicating with server');
     }
   }
 }

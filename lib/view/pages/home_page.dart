@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'pages.dart';
 
 class HomePage extends StatefulWidget {
   final dynamic username;
