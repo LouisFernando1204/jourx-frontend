@@ -151,9 +151,11 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                               child: Text(
                                 article.content!,
                                 style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 16,
-                                    color: Colors.grey),
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                  height: 1.8,
+                                ),
                                 textAlign: TextAlign.justify,
                               ),
                             ),

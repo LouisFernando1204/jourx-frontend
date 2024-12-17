@@ -10,32 +10,30 @@ void main() async {
 
 final router = GoRouter(
   routes: [
+    // untuk test ArticleListPage di root url ('/') saat aplikasi pertama kali dibuka
     GoRoute(
       path: '/',
-      name: 'Article List Page',
+      name: 'Login/Register',
       builder: (context, state) => const ArticleListPage(),
     ),
     GoRoute(
       path: '/success',
       name: 'Home Page',
       builder: (context, state) {
-        final username = state.pathParameters['username'].toString();
-        print("USERNAME: ${username}");
-        if (username == null || username.isEmpty) {
-          // Menampilkan error jika parameter username tidak ada
-          return const Scaffold(
-            body: Center(child: Text('Username parameter is missing!')),
-          );
-        }
+        final username = state.uri.queryParameters['username'].toString();
         return HomePage(username: username.toString());
       },
+    ),
+    GoRoute(
+      path: '/articles',
+      name: 'Article List Page',
+      builder: (context, state) => const ArticleListPage(),
     ),
     GoRoute(
       path: '/article/:slug',
       name: 'Article Detail Page',
       builder: (context, state) {
         final slug = state.pathParameters['slug'].toString();
-        print("SLUG: " + slug);
         return ArticleDetailPage(slug: slug);
       },
     ),
