@@ -9,7 +9,7 @@ class MainMenu extends StatefulWidget {
 
 class _MainMenuState extends State<MainMenu> {
   int _selectedIndex = 0;
-  static const List<Widget> _pages = <Widget>[HomePage(), LoginPage()];
+  static const List<Widget> _pages = <Widget>[HomePage(), AiRecomendationPage()];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -45,12 +45,12 @@ class _MainMenuState extends State<MainMenu> {
         backgroundColor: Color(0xFF0284C7),
         onTap: _onItemTapped,
         items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.dashboard), label: "Dashboard"),
-          BottomNavigationBarItem(icon: Icon(Icons.money), label: "Money"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Homepage"),
+          BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
+          BottomNavigationBarItem(icon: Icon(Icons.article), label: "Article")
         ],
         selectedItemColor: Colors.white, // Warna ikon yang terpilih (aktif)
-  unselectedItemColor: Colors.white, 
+        unselectedItemColor: Colors.white, 
       ),
       
     );

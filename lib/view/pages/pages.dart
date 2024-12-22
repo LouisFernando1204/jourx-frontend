@@ -17,3 +17,4 @@ part 'register_page.dart';
 part 'journaling_page.dart';
 part 'home_page.dart';
 part 'main_menu.dart';
+part 'ai_recomendation_page.dart';

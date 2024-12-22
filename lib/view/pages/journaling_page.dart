@@ -69,7 +69,7 @@ class _JournalingPageState extends State<JournalingPage> {
                 'Write Journal',
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold,
-                  fontSize: 18,
+                  fontSize: 16,
                 ),
               ),
             ),
@@ -89,7 +89,7 @@ class _JournalingPageState extends State<JournalingPage> {
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 19.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Container(
                 padding: const EdgeInsets.all(24.0),
                 child: Column(
