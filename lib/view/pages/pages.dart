@@ -18,3 +18,4 @@ part 'journaling_page.dart';
 part 'home_page.dart';
 part 'main_menu.dart';
 part 'ai_recomendation_page.dart';
+part 'history_page.dart';
