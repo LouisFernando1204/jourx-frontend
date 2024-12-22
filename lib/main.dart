@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jourx/view/pages/pages.dart'; // Pastikan Anda mengganti path ini ke lokasi sebenarnya dari PricePage
+import 'package:jourx/view/pages/pages.dart';
+import 'package:jourx/view/widgets/widgets.dart'; // Pastikan Anda mengganti path ini ke lokasi sebenarnya dari PricePage
 
 void main() async {
   print("Starting app...");
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const JournalingPage(), // Mengganti halaman utama menjadi PricePage
+      home: const MainMenu(), // Mengganti halaman utama menjadi PricePage
     );
   }
 }

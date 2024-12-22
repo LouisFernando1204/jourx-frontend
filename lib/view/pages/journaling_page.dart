@@ -28,23 +28,23 @@ class _JournalingPageState extends State<JournalingPage> {
     });
   }
 
-void _startListening() async {
-  bool available = await _speech.initialize();
-  if (available) {
-    setState(() {
-      _isListening = true;
-    });
-    _speech.listen(
-      localeId: 'id-ID',
-      onResult: (result) {
-        setState(() {
-          _text = result.recognizedWords;
-          _textController.text = _text;
-        });
-      },
-    );
+  void _startListening() async {
+    bool available = await _speech.initialize();
+    if (available) {
+      setState(() {
+        _isListening = true;
+      });
+      _speech.listen(
+        localeId: 'id-ID',
+        onResult: (result) {
+          setState(() {
+            _text = result.recognizedWords;
+            _textController.text = _text;
+          });
+        },
+      );
+    }
   }
-}
 
   @override
   void dispose() {
@@ -56,45 +56,67 @@ void _startListening() async {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight),
+        child: AppBar(
+          automaticallyImplyLeading:
+              false, // Menonaktifkan tombol kembali otomatis
+          title: Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 19.0), // Menambahkan padding horizontal
+            child: Center(
+              child: Text(
+                'Write Journal',
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+            ),
+          ),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context)
+                  .pop(); // Navigasi kembali ke halaman sebelumnya
+            },
+          ),
+        ),
+      ),
       resizeToAvoidBottomInset: true,
       body: ChangeNotifierProvider<JournalingViewmodel>(
         create: (_) => JournalingViewmodel(),
         child: Stack(
           children: [
-            // Wave design
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: CustomPaint(
-                size: Size(MediaQuery.of(context).size.width, 150),
-                painter: WavePainter(),
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 19.0),
               child: Container(
                 padding: const EdgeInsets.all(24.0),
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: Image.asset(
-                        '../assets/images/maskot.png',
-                        width: 300,
-                        height: 300,
+                    Text.rich(
+                      TextSpan(
+                        text: 'Write down what ', // Teks biasa
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 32,
+                            color: Colors.black),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text:
+                                'you are feeling!', // Teks dengan gaya yang berbeda
+                            style: GoogleFonts.poppins(
+                              color: Color(0xff0284c7),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 32,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(height: 32.0), // Space for wave
-                    Text(
-                      "Apa yang kamu rasakan hari ini?",
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                          color: Colors.orange),
-                    ),
+
                     const SizedBox(height: 8.0),
                     Text(
                       "Jumat, 27 Oktober 2024",
@@ -139,7 +161,7 @@ void _startListening() async {
                               child: IconButton(
                                 icon: Icon(
                                   _isListening ? Icons.mic_off : Icons.mic,
-                                  color: Colors.orange,
+                                  color: Color(0xff0284c7),
                                 ),
                                 onPressed: () {
                                   if (_isListening) {
@@ -158,12 +180,14 @@ void _startListening() async {
                       ),
                     ),
                     const SizedBox(height: 24.0),
+                    // Spacer to push the button to the bottom
+                    Spacer(),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: _isButtonEnabled
-                              ? Colors.orange
+                              ? Color(0xff0284c7)
                               : Colors.orange[200],
                           padding: const EdgeInsets.symmetric(vertical: 14.0),
                           shape: RoundedRectangleBorder(
@@ -172,9 +196,10 @@ void _startListening() async {
                         ),
                         onPressed: _isButtonEnabled
                             ? () {
-                                print('Jurnal tersimpan: ${_textController.text}');
+                                print(
+                                    'Jurnal tersimpan: ${_textController.text}');
                               }
-                            : null, 
+                            : null,
                         child: Text(
                           'Selesai',
                           style: GoogleFonts.poppins(
@@ -196,7 +221,6 @@ void _startListening() async {
     );
   }
 }
-
 
 class WavePainter extends CustomPainter {
   @override
