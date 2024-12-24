@@ -28,7 +28,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
         child: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.orange, Colors.deepOrange],
+              colors: [Color(0xFF0284C7), Color(0xFF0273B5)],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -64,7 +64,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
             switch (value.articleDetail.status) {
               case Status.loading:
                 return Center(
-                  child: CircularProgressIndicator(color: Colors.orange),
+                  child: CircularProgressIndicator(color: Color(0xFF0284C7)),
                 );
               case Status.error:
                 return Center(
@@ -95,7 +95,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                 return Align(
                                   alignment: Alignment.center,
                                   child: CircularProgressIndicator(
-                                      color: Colors.orange),
+                                      color: Color(0xFF0284C7)),
                                 );
                               },
                               errorBuilder: (context, error, stackTrace) {
@@ -167,7 +167,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                           children: [
                             Container(
                               decoration: BoxDecoration(
-                                color: Colors.orange,
+                                color: Color(0xFF0284C7),
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               padding: const EdgeInsets.symmetric(

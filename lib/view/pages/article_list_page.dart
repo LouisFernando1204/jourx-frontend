@@ -25,7 +25,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
         child: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.orange, Colors.deepOrange],
+              colors: [Color(0xFF0284C7), Color(0xFF0273B5)],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -52,7 +52,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
             switch (value.articleList.status) {
               case Status.loading:
                 return Center(
-                    child: CircularProgressIndicator(color: Colors.orange));
+                    child: CircularProgressIndicator(color: Color(0xFF0284C7)));
               case Status.error:
                 return Center(
                     child: Text(
@@ -71,7 +71,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
                               style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 18,
-                                  color: Colors.orange),
+                                  color: Color(0xFF0284C7)),
                             )
                           ],
                         ),
@@ -113,7 +113,8 @@ class _ArticleListPageState extends State<ArticleListPage> {
                                                 return Center(
                                                   child:
                                                       CircularProgressIndicator(
-                                                          color: Colors.orange),
+                                                          color: Color(
+                                                              0xFF0284C7)),
                                                 );
                                               },
                                               errorBuilder:
@@ -169,7 +170,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
                                           children: [
                                             Container(
                                               decoration: BoxDecoration(
-                                                color: Colors.orange,
+                                                color: Color(0xFF0284C7),
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                               ),
@@ -207,7 +208,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
                                                 fontWeight: FontWeight.normal,
                                                 fontStyle: FontStyle.italic,
                                                 fontSize: 14,
-                                                color: Colors.orange,
+                                                color: Color(0xFF0284C7),
                                               ),
                                             )
                                           ],
