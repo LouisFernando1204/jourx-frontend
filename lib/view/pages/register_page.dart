@@ -267,7 +267,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     style: TextStyle(color: Colors.black),
                                   ),
                                   TextSpan(
-                                    text: "Daftar di sini.",
+                                    text: "Masuk di sini.",
                                     style: TextStyle(color: Colors.orange),
                                   ),
                                 ],

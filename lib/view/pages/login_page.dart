@@ -13,9 +13,52 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  User? _user;
+
+  void handleGoogleSignIn() async {
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      await googleSignIn.signOut();
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+      if (googleUser == null) {
+        return;
+      }
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      UserCredential userCredential =
+          await _auth.signInWithCredential(credential);
+
+      setState(() {
+        _user = userCredential.user;
+      });
+
+      // Mendapatkan email setelah login
+      if (_user != null) {
+        String? email = _user?.email;
+        print('User email: $email');
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    _auth.authStateChanges().listen((event) {
+      setState(() {
+        _user = event;
+      });
+    });
   }
 
   @override
@@ -177,7 +220,7 @@ class _LoginPageState extends State<LoginPage> {
                       Center(
                         child: GestureDetector(
                           onTap: () {
-                            loginViewmodel.loginWithGmail();
+                            handleGoogleSignIn();
                           },
                           child: Container(
                             decoration: BoxDecoration(
