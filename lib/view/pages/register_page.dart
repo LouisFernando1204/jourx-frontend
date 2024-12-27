@@ -48,7 +48,7 @@ class _RegisterPageState extends State<RegisterPage> {
               height: MediaQuery.of(context).size.height * 0.4,
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.orange, Colors.deepOrange],
+                  colors: [Color(0xFF0284C7), Color(0xFF00B5D4)],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -88,7 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.bold,
                             fontSize: 22,
-                            color: Colors.orange,
+                            color: Color(0xFF0284C7),
                           ),
                         ),
                         const SizedBox(height: 8.0),
@@ -221,7 +221,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           width: double.infinity,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.orange,
+                              backgroundColor: Color(0xFF0284C7),
                               padding:
                                   const EdgeInsets.symmetric(vertical: 14.0),
                               shape: RoundedRectangleBorder(
@@ -313,7 +313,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   ),
                                   TextSpan(
                                     text: "Masuk di sini.",
-                                    style: TextStyle(color: Colors.orange),
+                                    style: TextStyle(color: Color(0xFF0284C7)),
                                   ),
                                 ],
                               ),
