@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:jourx/view_model/login_viewmodel.dart';
+import 'package:jourx/model/model.dart';
 
 class Repository {
   final apiUrl = "https://jourx.dickyyyy.site";
@@ -29,19 +30,30 @@ class Repository {
     }
   }
 
-  Future<http.Response> loginAccount(String email, String password) async {
+  Future<Map<String, dynamic>> loginAccount(
+      String email, String password) async {
     try {
-      final response = await http.post(Uri.parse("${apiUrl}/login"),
+      final response = await http.post(Uri.parse("${apiUrl}/api/login"),
           body: {'email': email, 'password': password});
       if (response.statusCode == 200) {
-        print("Response body : ${response.body}");
-        return jsonDecode(response.body);
+        var jsonResponse = jsonDecode(response.body);
+        var userData = jsonResponse['data']['user'];
+        User user = User.fromJson(userData);
+
+        return {
+          'status': Status.success,
+          'user': user,
+        };
       } else {
-        print("errorrrrr: ${response.statusCode}");
-        throw Exception("Failed to login account");
+        var errorResponse = jsonDecode(response.body);
+        throw errorResponse['message'];
       }
     } catch (error) {
-      throw error;
+
+      return {
+        'status': Status.error,
+        'user': null,
+      };
     }
   }
 }

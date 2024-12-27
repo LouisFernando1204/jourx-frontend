@@ -181,12 +181,39 @@ class _LoginPageState extends State<LoginPage> {
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                           ),
-                          onPressed: () {
+                          onPressed: () async {
                             if (emailController.text.isNotEmpty &&
                                 passwordController.text.isNotEmpty) {
-                              loginViewmodel.loginWithoutGmail(
-                                  emailController.toString(),
-                                  passwordController.toString());
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content:
+                                      Text('Sedang memproses akun...'),
+                                  backgroundColor: Colors.blue,
+                                  duration: Duration(
+                                      seconds:
+                                          3), 
+                                ),
+                              );
+                              await loginViewmodel.loginWithoutGmail(
+                                  emailController.text,
+                                  passwordController.text);
+
+                              if (loginViewmodel.loginStatus == Status.success && loginViewmodel.user != null) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('Berhasil login sebagai ${loginViewmodel.user?.name}!'),
+                                      backgroundColor: Colors.green,
+                                    ),
+                                  );
+                                } else if (loginViewmodel.loginStatus ==
+                                    Status.error) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Login gagal!'),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
