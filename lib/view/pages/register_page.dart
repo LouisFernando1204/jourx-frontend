@@ -10,6 +10,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   LoginViewmodel loginViewmodel = LoginViewmodel();
 
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -17,7 +18,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   String? selectedGender;
 
-  // Date picker function
   Future<void> _selectDate(BuildContext context) async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -102,6 +102,21 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         const SizedBox(height: 24.0),
 
+                        // Name Field
+                        Text(
+                          "Name",
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(height: 12.0),
+                        _buildTextField(
+                            nameController, 'Bisa kenalan? Siapa namamu?'),
+
+                        const SizedBox(height: 16.0),
+
                         // Email Field
                         Text(
                           "Email",
@@ -113,7 +128,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         const SizedBox(height: 12.0),
                         _buildTextField(
-                            emailController, 'Isi email dan mulai ceritamu!'),
+                            emailController, 'Isi emailmu juga yaa'),
 
                         const SizedBox(height: 16.0),
 
@@ -177,11 +192,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         const SizedBox(height: 12.0),
                         DropdownButtonFormField<String>(
                           value: selectedGender,
-                          items: [
+                          items: const [
                             DropdownMenuItem(
-                                child: Text("Laki-laki"), value: "Laki-laki"),
+                                child: Text("Laki-laki"), value: "male"),
                             DropdownMenuItem(
-                                child: Text("Perempuan"), value: "Perempuan"),
+                                child: Text("Perempuan"), value: "female"),
+                            DropdownMenuItem(
+                                child: Text("Lainnya"), value: "other"),
                           ],
                           onChanged: (value) {
                             setState(() {
@@ -211,20 +228,48 @@ class _RegisterPageState extends State<RegisterPage> {
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                             ),
-                            onPressed: () {
-                              if (emailController.text.isNotEmpty &&
+                            onPressed: () async {
+                              if (nameController.text.isNotEmpty &&
+                                  emailController.text.isNotEmpty &&
                                   usernameController.text.isNotEmpty &&
                                   passwordController.text.isNotEmpty &&
                                   birthdateController.text.isNotEmpty &&
                                   selectedGender != null) {
-                                // Call registration method
-                                loginViewmodel.registerAccount(
-                                  emailController.text,
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content:
+                                        Text('Sedang memproses registrasi...'),
+                                    backgroundColor: Colors.blue,
+                                    duration: Duration(
+                                        seconds:
+                                            3), // Durasi menampilkan SnackBar
+                                  ),
+                                );
+                                await loginViewmodel.registerAccount(
+                                  nameController.text,
                                   usernameController.text,
+                                  emailController.text,
                                   passwordController.text,
                                   birthdateController.text,
                                   selectedGender!,
                                 );
+                                if (loginViewmodel.registerStatus ==
+                                    Status.success) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Registrasi berhasil!'),
+                                      backgroundColor: Colors.green,
+                                    ),
+                                  );
+                                } else if (loginViewmodel.registerStatus ==
+                                    Status.error) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Registrasi gagal!'),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
