@@ -264,8 +264,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                 } else if (loginViewmodel.registerStatus ==
                                     Status.error) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Registrasi gagal!'),
+                                    SnackBar(
+                                      content: Text('Registrasi gagal! ${loginViewmodel.registerErrorMessage}'),
                                       backgroundColor: Colors.red,
                                     ),
                                   );

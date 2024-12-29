@@ -225,8 +225,8 @@ class _LoginPageState extends State<LoginPage> {
                                   } else if (loginViewmodel.loginStatus ==
                                       Status.error) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('Login gagal!'),
+                                      SnackBar(
+                                        content: Text('Login gagal! ${loginViewmodel.loginErrorMessage}'),
                                         backgroundColor: Colors.red,
                                       ),
                                     );

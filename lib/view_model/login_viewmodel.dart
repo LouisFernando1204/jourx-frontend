@@ -2,42 +2,73 @@ import 'package:flutter/material.dart';
 import 'package:jourx/repository/repository.dart';
 import 'package:jourx/model/model.dart';
 
-enum Status { error, success, none }
+enum Status { error, success, none, loading }
 
 class LoginViewmodel with ChangeNotifier {
   final _repo = Repository();
 
   Status loginStatus = Status.none;
   User? user;
-  Future<dynamic> loginWithoutGmail(String email, String password) async {
+  String? loginErrorMessage;
+  Future<void> loginWithoutGmail(String email, String password) async {
+    loginStatus = Status.none;
+    loginErrorMessage = "";
+    notifyListeners();
     try {
-      loginStatus = Status.none;
-      notifyListeners();
       var result = await _repo.loginAccount(email, password);
       loginStatus = result['status'];
       if (loginStatus == Status.success) {
         user = result['user'];
-        print("Login successful: ${user!.name}");
-      } 
+        notifyListeners();
+      } else if (loginStatus == Status.error) {
+        loginErrorMessage = result['message'];
+        notifyListeners();
+      }
     } catch (error) {
       loginStatus = Status.error;
-      print("Error during registration: $error");
+      loginErrorMessage = error.toString();
       notifyListeners();
     }
   }
 
   Status registerStatus = Status.none;
-  Future<dynamic> registerAccount(String name, String username, String email,
+  String? registerErrorMessage;
+  Future<void> registerAccount(String name, String username, String email,
       String password, String ttl, String gender) async {
+    registerStatus = Status.none;
+    registerErrorMessage = "";
+    notifyListeners();
     try {
-      registerStatus = Status.none;
-      notifyListeners();
-      registerStatus = await _repo.registerAccount(
+      var result = await _repo.registerAccount(
           name, username, email, password, ttl, gender);
+      registerStatus = result['status'];
+      if (registerStatus == Status.error) {
+        registerErrorMessage = result['message'];
+      }
       notifyListeners();
     } catch (error) {
       registerStatus = Status.error;
-      print("Error during registration: $error");
+      registerErrorMessage = error.toString();
+      notifyListeners();
+    }
+  }
+
+  Status checkAccountStatus = Status.none;
+  String? checkAccountErrorMessage;
+  Future<void> checkAccount(String email) async {
+    checkAccountStatus = Status.none;
+    checkAccountErrorMessage = "";
+    notifyListeners();
+    try {
+      var result = await _repo.checkAccount(email);
+      checkAccountStatus = result['status'];
+      if (checkAccountStatus == Status.error) {
+        checkAccountErrorMessage = result['message'];
+      }
+      notifyListeners();
+    } catch (error) {
+      checkAccountStatus = Status.error;
+      checkAccountErrorMessage = error.toString();
       notifyListeners();
     }
   }
