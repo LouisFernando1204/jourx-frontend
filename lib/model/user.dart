@@ -1,11 +1,12 @@
 part of 'model.dart';
 
-enum Gender { male, female, other }  // Define the gender Enum
+enum Gender { male, female, other } // Define the gender Enum
 
 class User extends Equatable {
   final int? userId;
   final String? name;
   final String? username;
+  final String? email;
   final DateTime? birthDate;
   final Gender? gender;
 
@@ -13,6 +14,7 @@ class User extends Equatable {
     this.userId,
     this.name,
     this.username,
+    this.email,
     this.birthDate,
     this.gender,
   });
@@ -22,6 +24,7 @@ class User extends Equatable {
       userId: json['id'] as int?,
       name: json['name'] as String?,
       username: json['username'] as String?,
+      email: json['email'] as String?,
       birthDate: DateTime.parse(json['birth_date']),
       gender: _genderFromString(json['gender']),
     );
@@ -31,6 +34,7 @@ class User extends Equatable {
         'id': userId,
         'name': name,
         'username': username,
+        'email': email,
         'birth_date': birthDate?.toIso8601String(),
         'gender': gender?.toString(),
       };
@@ -51,6 +55,6 @@ class User extends Equatable {
 
   @override
   List<Object?> get props {
-    return [userId, name, username, birthDate, gender];
+    return [userId, name, username, email, birthDate, gender];
   }
 }

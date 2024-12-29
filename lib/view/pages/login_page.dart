@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
 
   User? _user;
 
-  void handleGoogleSignIn() async {
+  Future<dynamic> handleGoogleSignIn() async {
     try {
       final GoogleSignIn googleSignIn = GoogleSignIn();
       await googleSignIn.signOut();
@@ -26,8 +26,15 @@ class _LoginPageState extends State<LoginPage> {
       if (googleUser == null) {
         return;
       }
+      
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
+
+      await loginViewmodel.checkAccount(googleUser.email);
+
+      if (loginViewmodel.checkAccountStatus != Status.error) {
+        return;
+      }
 
       final OAuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -37,17 +44,13 @@ class _LoginPageState extends State<LoginPage> {
       UserCredential userCredential =
           await _auth.signInWithCredential(credential);
 
+
       setState(() {
         _user = userCredential.user;
       });
 
-      // Mendapatkan email setelah login
-      if (_user != null) {
-        String? email = _user?.email;
-        print('User email: $email');
-      }
     } catch (error) {
-      print(error);
+      rethrow;
     }
   }
 
@@ -226,7 +229,8 @@ class _LoginPageState extends State<LoginPage> {
                                       Status.error) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                        content: Text('Login gagal! ${loginViewmodel.loginErrorMessage}'),
+                                        content: Text(
+                                            'Login gagal: ${loginViewmodel.loginErrorMessage}'),
                                         backgroundColor: Colors.red,
                                       ),
                                     );
@@ -263,8 +267,31 @@ class _LoginPageState extends State<LoginPage> {
                           const SizedBox(height: 16.0),
                           Center(
                             child: GestureDetector(
-                              onTap: () {
-                                handleGoogleSignIn();
+                              onTap: () async {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text('Sedang memproses akun...'),
+                                  backgroundColor: Colors.blue,
+                                  duration: Duration(seconds: 3),
+                                ));
+
+                                await handleGoogleSignIn();
+
+                                if (loginViewmodel.checkAccountStatus ==
+                                    Status.success) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text('Berhasil login sebagai ${loginViewmodel.loginUser!.email}!'),
+                                    backgroundColor: Colors.green,
+                                  ));
+                                } else if (loginViewmodel.checkAccountStatus ==
+                                    Status.error) {
+                                      ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text('Login gagal: ${loginViewmodel.checkAccountErrorMessage}!'),
+                                    backgroundColor: Colors.red,
+                                  ));
+                                    }
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -313,7 +340,8 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                     TextSpan(
                                       text: "Daftar di sini.",
-                                      style: TextStyle(color: Color(0xFF0284C7)),
+                                      style:
+                                          TextStyle(color: Color(0xFF0284C7)),
                                     ),
                                   ],
                                 ),

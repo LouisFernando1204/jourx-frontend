@@ -11,7 +11,7 @@ class Repository {
       String email, String password, String ttl, String gender) async {
     try {
       final response =
-          await http.post(Uri.parse("${apiUrl}/api/register"), body: {
+          await http.post(Uri.parse("$apiUrl/api/register"), body: {
         'name': name,
         'username': username,
         'email': email,
@@ -19,52 +19,93 @@ class Repository {
         'birth_date': ttl,
         'gender': gender
       });
+
       var jsonResponse = jsonDecode(response.body);
-      var message = jsonResponse['message'];
+      var responseMessage = jsonResponse['message'];
+
       if (response.statusCode == 201) {
-        return {'status': Status.success, 'message': message};
+        return {'status': Status.success, 'message': responseMessage};
       } else {
-        return {'status': Status.error, 'message': message};
+        print("masuk sini errornya 2");
+
+        return {'status': Status.error, 'message': responseMessage};
       }
     } catch (error) {
-      return {'status': Status.error, 'message': error};
+      print("masuk sini errornya");
+
+      return {'status': Status.error, 'message': error.toString()};
     }
   }
 
   Future<Map<String, dynamic>> loginAccount(
       String email, String password) async {
     try {
-      final response = await http.post(Uri.parse("${apiUrl}/api/login"),
+      final response = await http.post(Uri.parse("$apiUrl/api/login"),
           body: {'email': email, 'password': password});
       var jsonResponse = jsonDecode(response.body);
-      var message = jsonResponse['message'];
+
       if (response.statusCode == 200) {
         var userData = jsonResponse['data']['user'];
         User user = User.fromJson(userData);
-        return {'status': Status.success, 'user': user, 'message': message};
+
+        return {
+          'status': Status.success,
+          'user': user,
+          'message': 'Login berhasil!'
+        };
       } else {
-        return {'status': Status.error, 'user': null, 'message': message};
+        var responseMessage = jsonResponse['message'];
+
+        return {
+          'status': Status.error,
+          'user': null,
+          'message': responseMessage
+        };
       }
-    } catch (error) {
-      return {'status': Status.error, 'user': null, 'message': error};
+    } catch (_) {
+      return {
+        'status': Status.error,
+        'user': null,
+        'message': 'Validation failed!'
+      };
     }
   }
 
   Future<Map<String, dynamic>> checkAccount(String email) async {
     try {
-      final response = await http.post(Uri.parse("${apiUrl}/api/check_status"),
-          body: {'email': email});
+      final response = await http
+          .post(Uri.parse("$apiUrl/api/check_user"), body: {'email': email});
+      print(email);
+
       var jsonResponse = jsonDecode(response.body);
-      var message = jsonResponse['message'];
+
       if (response.statusCode == 200) {
         var userData = jsonResponse['data']['user'];
         User user = User.fromJson(userData);
-        return {'status': Status.success, 'user': user, 'message': message};
+
+        return {
+          'status': Status.success,
+          'user': user,
+          'message': 'Email ditemukan!'
+        };
       } else {
-        return {'status': Status.error, 'user': null, 'message': message};
+        print("masuk sini errornya 2");
+        var responseMessage = jsonResponse['message'];
+
+        return {
+          'status': Status.error,
+          'user': null,
+          'message': responseMessage
+        };
       }
-    } catch (error) {
-      return {'status': Status.error, 'user': null, 'message': error};
+    } catch (_) {
+      print("masuk sini errornya");
+
+      return {
+        'status': Status.error,
+        'user': null,
+        'message': 'Validation failed!'
+      };
     }
   }
 }
