@@ -33,21 +33,19 @@ class _LoginPageState extends State<LoginPage> {
       await loginViewmodel.checkAccount(googleUser.email);
 
       if (loginViewmodel.checkAccountStatus != Status.error) {
-        return;
+        
+        final OAuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+
+        UserCredential userCredential = await _auth.signInWithCredential(credential);
+
+        setState(() {
+          _user = userCredential.user;
+        });
+
       }
-
-      final OAuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      UserCredential userCredential =
-          await _auth.signInWithCredential(credential);
-
-
-      setState(() {
-        _user = userCredential.user;
-      });
 
     } catch (error) {
       rethrow;
@@ -268,14 +266,15 @@ class _LoginPageState extends State<LoginPage> {
                           Center(
                             child: GestureDetector(
                               onTap: () async {
+
+                                await handleGoogleSignIn();
+
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(const SnackBar(
                                   content: Text('Sedang memproses akun...'),
                                   backgroundColor: Colors.blue,
                                   duration: Duration(seconds: 3),
                                 ));
-
-                                await handleGoogleSignIn();
 
                                 if (loginViewmodel.checkAccountStatus ==
                                     Status.success) {
