@@ -8,63 +8,15 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
-  final TextEditingController _searchController = TextEditingController();
-  List<Map<String, dynamic>> _allHistories = [];
-  List<Map<String, dynamic>> _filteredHistories = [];
+  final _searchController = TextEditingController();
+  String _searchText = "";
 
   @override
   void initState() {
     super.initState();
-
-    // Data awal
-    _allHistories = [
-      {
-        'title':
-            'Pengalaman Mendaki Gunung Bromo yang Sangat Menakjubkan Makan Ayam',
-        'date': 'Kamis, 18 November 2024',
-        'categoryValue': 80,
-      },
-      {
-        'title':
-            'Pengalaman Mendaki Menakjubkan Makan Ayam Jalan-jalan ke Pantai Indah',
-        'date': 'Senin, 20 November 2024',
-        'categoryValue': 50,
-      },
-      {
-        'title':
-            'Menikmati Pengalaman Mendaki Gunung Brogat Menakjubkan Makan Ayam Wisata Kuliner di Bandung',
-        'date': 'Selasa, 21 November 2024',
-        'categoryValue': 40,
-      },
-      {
-        'title':
-            'Menikmati Pengalaman Mendaki Gunung Bromo yang Sangat Menakjubkan Makan Ayam Wisata Kuliner di Bandung',
-        'date': 'Selasa, 21 November 2024',
-        'categoryValue': 90,
-      },
-      {
-        'title':
-            'Menikmati Pengalaman Mendaki Gunung Bromo yang Sangat Menakjubkan Makan Ayam Wisata Kuliner di Bandung',
-        'date': 'Selasa, 21 November 2024',
-        'categoryValue': 10,
-      },
-      {
-        'title':
-            'Menikmati Pengalaman Mendaki Gunung Bromo yang Sangat Menakjubkan Makan Ayam Wisata Kuliner di Bandung',
-        'date': 'Selasa, 21 November 2024',
-        'categoryValue': 100,
-      },
-    ];
-    _filteredHistories = List.from(_allHistories);
-  }
-
-  void _filterHistories(String query) {
-    setState(() {
-      _filteredHistories = _allHistories
-          .where((history) =>
-              history['title'].toLowerCase().contains(query.toLowerCase()) ||
-              history['date'].toLowerCase().contains(query.toLowerCase()))
-          .toList();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<DiaryViewmodel>(context, listen: false).getDiaryList(
+          '1|TBHGYu1mVtGg3zwtnA4vcoi0O0iejmlFSFbvHhUx6106c8a4'); //ganti dengan token user yang sedang login
     });
   }
 
@@ -89,80 +41,97 @@ class _HistoryPageState extends State<HistoryPage> {
           ),
         ),
       ),
-      resizeToAvoidBottomInset: true,
-      body: ChangeNotifierProvider<JournalingViewmodel>(
-        create: (_) => JournalingViewmodel(),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Column(
-            children: [
-              // Search Bar
-              SizedBox(
-                width: double.infinity,
-                child: TextField(
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    hintText: 'Search by title or date',
-                    prefixIcon: Icon(Icons.search, color: Color(0xff0284c7)),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: BorderSide(color: Color(0xff0284c7)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: BorderSide(color: Color(0xff0284c7), width: 2.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: BorderSide(color: Color(0xff0284c7)),
-                    ),
-                  ),
-                  onChanged: (value) => _filterHistories(value),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(19.0),
+            child: TextField(
+              controller: _searchController,
+              style: const TextStyle(color: Colors.black), // Warna teks hitam
+              decoration: InputDecoration(
+                hintText: 'Search...',
+                hintStyle:
+                    const TextStyle(color: Colors.grey), // Warna hint abu-abu
+                filled: true, // Mengaktifkan pengisian warna latar belakang
+                fillColor:
+                    Colors.grey.shade200, // Warna latar belakang abu-abu terang
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none, // Menghilangkan border
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                      color: Colors.black), // Border hitam saat fokus
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 15.0, vertical: 12.0),
               ),
-
-              const SizedBox(height: 16),
-              // Scrollable List
-              Expanded(
-                child: _filteredHistories.isEmpty
-                    ? Center(
-                        child: Text(
-                          'Konten tidak ditemukan...',
-                          style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      )
-                    : SingleChildScrollView(
-                        child: Container(
-                          padding: const EdgeInsets.only(top: 5.0),
-                          child: Column(
-                            children: _filteredHistories.map((history) {
-                              return HistoryCard(
-                                journalTitle: history['title'],
-                                journalDate: history['date'],
-                                categoryValue: history['categoryValue'],
-                                onTap: () {
-                                  print('${history['title']} di-tap!');
-                                },
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-              ),
-            ],
+              onChanged: (value) {
+                setState(() {
+                  _searchText = value;
+                });
+              },
+            ),
           ),
-        ),
+          Expanded(
+            child: Consumer<DiaryViewmodel>(
+              builder: (context, viewModel, _) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 19),
+                  child: _buildBody(viewModel),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
+
+  Widget _buildBody(DiaryViewmodel viewModel) {
+    switch (viewModel.diaryList.status) {
+      case Status.loading:
+        return const Center(child: CircularProgressIndicator());
+      case Status.error:
+        return Center(child: Text('Error: ${viewModel.diaryList.message}'));
+      case Status.completed:
+        final allDiaries = viewModel.diaryList.data ?? [];
+        final filteredDiaries = _searchText.isEmpty
+            ? allDiaries
+            : allDiaries
+                .where((diary) => diary.content!
+                    .toLowerCase()
+                    .contains(_searchText.toLowerCase()))
+                .toList();
+        return filteredDiaries.isEmpty
+            ? const Center(child: Text('No diaries found for your search'))
+            : ListView.builder(
+                itemCount: filteredDiaries.length,
+                itemBuilder: (context, index) {
+                  final history = filteredDiaries[index];
+                  return HistoryCard(
+                    journalTitle: history.content,
+                    journalDate: history.createdAt,
+                    categoryValue: history.stressLevel,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => JournalResultPage(
+                            bearerToken:
+                                '1|TBHGYu1mVtGg3zwtnA4vcoi0O0iejmlFSFbvHhUx6106c8a4', // Ganti sesuai token Anda
+                            diaryID: history.id!,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              );
+      default:
+        return const Center(child: Text("Unknown State"));
+    }
   }
 }

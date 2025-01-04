@@ -9,7 +9,7 @@ class MainMenu extends StatefulWidget {
 
 class _MainMenuState extends State<MainMenu> {
   int _selectedIndex = 0;
-  static const List<Widget> _pages = <Widget>[HomePage(), HistoryPage()];
+  static const List<Widget> _pages = <Widget>[HistoryPage()];
 
   void _onItemTapped(int index) {
     setState(() {

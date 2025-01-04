@@ -9,53 +9,69 @@ class HistoryCard extends StatelessWidget {
     this.onTap,
   });
 
-  final String journalTitle;
-  final String journalDate;
-  final int categoryValue; // Tipe data diubah menjadi int
+  final String? journalTitle;
+  final DateTime? journalDate;
+  final int? categoryValue; // Tipe data diubah menjadi int
   final VoidCallback? onTap;
 
-  Color getCategoryColor() {
-    if (categoryValue >= 0 && categoryValue <= 40) {
-      return Color(0xff3BA79E);
-    } else if (categoryValue > 40 && categoryValue <= 80) {
-      return Color(0xff3EABE00);
-    } else if (categoryValue > 80 && categoryValue <= 100) {
-      return Color(0xffF65A48);
-    } else {
-      return Colors.grey; // Warna default jika nilai di luar rentang
-    }
+
+Color getCategoryColor(dynamic categoryValue) {
+  if (categoryValue == null) {
+    return Colors.grey; // Handle null case
   }
 
-  Color getBackgroundColor() {
-    if (categoryValue >= 0 && categoryValue <= 40) {
-      return Color(0xffAFE1DB); // Warna latar belakang untuk kategori 0-40
-    } else if (categoryValue > 40 && categoryValue <= 80) {
-      return Color(0xffF4E5A7); // Warna latar belakang untuk kategori 41-80
-    } else if (categoryValue > 80 && categoryValue <= 100) {
-      return Color(0xffF5C3BD); // Warna latar belakang untuk kategori 81-100
-    } else {
-      return Colors.grey.shade300; // Warna default jika nilai di luar rentang
-    }
+
+  if (categoryValue >= 0 && categoryValue <= 40) {
+    return const Color(0xff3BA79E);
+  } else if (categoryValue > 40 && categoryValue <= 80) {
+    return const Color(0xffEABE00); // Perbaikan typo: 0xff3EABE0 bukan 0xff3EABE00
+  } else if (categoryValue > 80 && categoryValue <= 100) {
+    return const Color(0xffF65A48);
+  } else {
+    return Colors.grey;
+  }
+}
+
+Color getBackgroundColor(dynamic categoryValue) {
+  if (categoryValue == null) {
+    return Colors.grey.shade300;
   }
 
-  String getIcon() {
-    if (categoryValue >= 0 && categoryValue <= 40) {
-      return 'assets/images/happy.png';
-    } else if (categoryValue > 40 && categoryValue <= 80) {
-      return 'assets/images/plain.png';
-    } else if (categoryValue > 80 && categoryValue <= 100) {
-      return 'assets/images/angry.png';
-    } else {
-      return ""; // Warna default jika nilai di luar rentang
-    }
+  if (categoryValue >= 0 && categoryValue <= 40) {
+    return const Color(0xffAFE1DB);
+  } else if (categoryValue > 40 && categoryValue <= 80) {
+    return const Color(0xffF4E5A7);
+  } else if (categoryValue > 80 && categoryValue <= 100) {
+    return const Color(0xffF5C3BD);
+  } else {
+    return Colors.grey.shade300;
   }
+}
+
+String getIcon(dynamic categoryValue) {
+  if (categoryValue == null) {
+    return "";
+  }
+
+   
+
+  if (categoryValue >= 0 && categoryValue <= 40) {
+    return 'assets/images/happy.png';
+  } else if (categoryValue > 40 && categoryValue <= 80) {
+    return 'assets/images/plain.png';
+  } else if (categoryValue > 80 && categoryValue <= 100) {
+    return 'assets/images/angry.png';
+  } else {
+    return "";
+  }
+}
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
       child: Card(
-        color: getBackgroundColor(), // Menambahkan latar belakang warna berdasarkan kategori
+        color: getBackgroundColor(categoryValue), // Menambahkan latar belakang warna berdasarkan kategori
         child: Row(
           children: [
             Padding(
@@ -64,7 +80,7 @@ class HistoryCard extends StatelessWidget {
                 width: 8,
                 height: 80, // Lebar kotak kategori
                 decoration: BoxDecoration(
-                  color: getCategoryColor(),
+                  color: getCategoryColor(categoryValue),
                   borderRadius: const BorderRadius.all(
                     Radius.circular(8),
                   ),
@@ -82,7 +98,7 @@ class HistoryCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            journalTitle,
+                            journalTitle!,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.poppins(
@@ -93,12 +109,14 @@ class HistoryCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            journalDate,
+                            journalDate != null
+                                ? DateFormat('dd MMM yyyy, HH:mm').format(journalDate!)
+                                : "",
                             style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 12,
-                        color: Colors.black,
-                      ),
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12,
+                              color: Colors.black,
+                            ),
                           ),
                         ],
                       ),
@@ -111,7 +129,7 @@ class HistoryCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Image.asset(
-                          getIcon(),
+                          getIcon(categoryValue),
                           height: 40,
                           width: 40,
                         ),

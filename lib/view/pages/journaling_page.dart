@@ -84,8 +84,8 @@ class _JournalingPageState extends State<JournalingPage> {
         ),
       ),
       resizeToAvoidBottomInset: true,
-      body: ChangeNotifierProvider<JournalingViewmodel>(
-        create: (_) => JournalingViewmodel(),
+      body: ChangeNotifierProvider<DiaryViewmodel>(
+        create: (_) => DiaryViewmodel(),
         child: Stack(
           children: [
             Padding(

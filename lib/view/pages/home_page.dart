@@ -106,30 +106,30 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.black,
                       ),
                     ),
-                    HistoryCard(
-                      journalTitle: 'Pengalaman Mendaki Gunung Bromo yang Sangat Menakjubkan',
-                      journalDate: 'Kamis, 18 November 2024',
-                      categoryValue: 80,
-                      onTap: () {
-                        print('Card 1 di-tap!');
-                      },
-                    ),
-                    HistoryCard(
-                      journalTitle: 'Pengalaman Mendaki Gunung Bromo yang Sangat Menakjubkan Makan Ayam',
-                      journalDate: 'Kamis, 18 November 2024',
-                      categoryValue: 90,
-                      onTap: () {
-                        print('Card 1 di-tap!');
-                      },
-                    ),
-                    HistoryCard(
-                      journalTitle: 'Pengalaman Mendaki Gunung Bromo yang Sangat Menakjubkan Makan Ayam',
-                      journalDate: 'Kamis, 18 November 2024',
-                      categoryValue: 10,
-                      onTap: () {
-                        print('Card 1 di-tap!');
-                      },
-                    ),
+                    // HistoryCard(
+                    //   journalTitle: 'Pengalaman Mendaki Gunung Bromo yang Sangat Menakjubkan',
+                    //   journalDate: 'Kamis, 18 November 2024',
+                    //   categoryValue: 80,
+                    //   onTap: () {
+                    //     print('Card 1 di-tap!');
+                    //   },
+                    // ),
+                    // HistoryCard(
+                    //   journalTitle: 'Pengalaman Mendaki Gunung Bromo yang Sangat Menakjubkan Makan Ayam',
+                    //   journalDate: 'Kamis, 18 November 2024',
+                    //   categoryValue: 90,
+                    //   onTap: () {
+                    //     print('Card 1 di-tap!');
+                    //   },
+                    // ),
+                    // HistoryCard(
+                    //   journalTitle: 'Pengalaman Mendaki Gunung Bromo yang Sangat Menakjubkan Makan Ayam',
+                    //   journalDate: 'Kamis, 18 November 2024',
+                    //   categoryValue: 10,
+                    //   onTap: () {
+                    //     print('Card 1 di-tap!');
+                    //   },
+                    // ),
                   ],
                 ),
               ),

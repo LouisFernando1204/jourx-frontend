@@ -9,50 +9,68 @@ import 'package:jourx/data/app_exception.dart';
 
 class NetworkApiServices implements BaseApiServices {
   @override
-  Future getApiResponse(String endpoint) async {
-    dynamic responseJson;
-    try {
-      final response = await http
-          .get(Uri.https(Const.baseUrl, endpoint), headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'key': Const.apiKey,
-      });
-      responseJson = returnResponse(response);
-    } on SocketException {
-      throw NoInternetException('');
-    } on TimeoutException {
-      throw FetchDataException('Network request time out!');
+  Future getApiResponse(String endpoint, {String? bearerToken}) async {
+  dynamic responseJson;
+  try {
+    final headers = <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    };
+
+    if (bearerToken != null && bearerToken.isNotEmpty) {
+      headers['Authorization'] = 'Bearer $bearerToken';
     }
 
-    return responseJson;
+    final response = await http.get(
+      Uri.parse('${Const.baseUrl}$endpoint'),
+      headers: headers,
+    );
+
+    responseJson = returnResponse(response);
+  } on SocketException {
+    throw NoInternetException('No Internet connection.');
+  } on TimeoutException {
+    throw FetchDataException('Network request timed out!');
   }
+
+  return responseJson;
+}
+
 
   @override
-  Future<dynamic> postApiResponse(String endpoint, dynamic data) async {
-    dynamic responseJson;
-    try {
-      print(data);
-      final response = await http.post(
-        Uri.https(Const.baseUrl, endpoint),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'key': Const.apiKey,
-        },
-        body: jsonEncode(data),
-      );
-      responseJson = returnResponse(response);
-      print("RESPONSE");
-      return responseJson;
-    } on SocketException {
-      throw NoInternetException('No internet connection!');
-    } on TimeoutException {
-      throw FetchDataException('Network request timeout!');
-    } on FormatException {
-      throw FetchDataException('Invalid response format!');
-    } catch (e) {
-      throw FetchDataException('Unexpected error: $e');
+ Future<dynamic> postApiResponse(String endpoint, dynamic data, {String? bearerToken}) async {
+  dynamic responseJson;
+  try {
+    print(data);
+
+    final headers = <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    };
+
+    if (bearerToken != null && bearerToken.isNotEmpty) {
+      headers['Authorization'] = 'Bearer $bearerToken';
     }
+
+    final response = await http.post(
+      Uri.parse('${Const.baseUrl}$endpoint'),
+      headers: headers,
+      body: jsonEncode(data),
+    );
+
+    responseJson = returnResponse(response);
+    print("RESPONSE");
+
+    return responseJson;
+  } on SocketException {
+    throw NoInternetException('No internet connection!');
+  } on TimeoutException {
+    throw FetchDataException('Network request timeout!');
+  } on FormatException {
+    throw FetchDataException('Invalid response format!');
+  } catch (e) {
+    throw FetchDataException('Unexpected error: $e');
   }
+}
+
 
   dynamic returnResponse(http.Response response) {
     switch (response.statusCode) {
