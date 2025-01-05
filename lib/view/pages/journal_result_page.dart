@@ -81,7 +81,6 @@ class _JournalResultPageState extends State<JournalResultPage> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
-          // Content goes here
           Padding(
             padding: const EdgeInsets.only(top: 24.0),
             child: Text.rich(
@@ -136,13 +135,12 @@ class _JournalResultPageState extends State<JournalResultPage> {
           ),
           const SizedBox(height: 15.0),
 
-          // Progress bar with icons on the sides
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                    right: 8.0), // Memberikan jarak di sisi kanan icon kiri
+                    right: 8.0), 
                 child: Image.asset(
                   'assets/images/angry.png',
                   height: 40,
@@ -152,30 +150,30 @@ class _JournalResultPageState extends State<JournalResultPage> {
               Expanded(
                 child: Container(
                   width: MediaQuery.of(context).size.width *
-                      0.5, // Mengatur panjang progress bar 50% dari lebar layar
-                  height: 30, // Mengatur tinggi progress bar
+                      0.5,
+                  height: 30, 
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(
-                        12), // Menambahkan radius pada sudut
+                        12), 
                     color:
-                        Colors.grey[300], // Warna latar belakang progress bar
+                        Colors.grey[300], 
                   ),
                   child: Stack(
                     children: [
                       LinearProgressIndicator(
                         value: stressLevel /
-                            100, // Normalize to a value between 0 and 1
+                            100, 
                         minHeight: 30,
                         backgroundColor: Colors
-                            .transparent, // Membuat latar belakang menjadi transparan
+                            .transparent,
                         valueColor: AlwaysStoppedAnimation<Color>(
-                            Colors.blue), // Mengatur warna progres menjadi biru
+                            Colors.blue), 
                         borderRadius:
-                            BorderRadius.circular(12), // Menambahkan radius
+                            BorderRadius.circular(12), 
                       ),
                       Center(
                         child: Text(
-                          '${(stressLevel).toInt()}%', // Menampilkan angka progress sebagai persen
+                          '${(stressLevel).toInt()}%', 
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -189,7 +187,7 @@ class _JournalResultPageState extends State<JournalResultPage> {
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                    left: 8.0), // Memberikan jarak di sisi kiri icon kanan
+                    left: 8.0),
                 child: Image.asset(
                   'assets/images/happy.png',
                   height: 40,
@@ -200,7 +198,7 @@ class _JournalResultPageState extends State<JournalResultPage> {
           ),
 
           const SizedBox(height: 25),
-          // Expanded widget pushes the button to the bottom
+        
           Expanded(
             child: Container(),
           ),
@@ -212,7 +210,7 @@ class _JournalResultPageState extends State<JournalResultPage> {
                   MaterialPageRoute(
                     builder: (context) => AiRecomendationPage(
                       bearerToken:
-                          widget.bearerToken, // Ganti sesuai token Anda
+                          widget.bearerToken, 
                       diaryID: widget.diaryID,
                     ),
                   ),

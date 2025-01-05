@@ -2,6 +2,7 @@ part of 'pages.dart';
 
 class MainMenu extends StatefulWidget {
   const MainMenu({super.key});
+  final String bearerToken = '1|TBHGYu1mVtGg3zwtnA4vcoi0O0iejmlFSFbvHhUx6106c8a4';
 
   @override
   State<MainMenu> createState() => _MainMenuState();
@@ -9,7 +10,18 @@ class MainMenu extends StatefulWidget {
 
 class _MainMenuState extends State<MainMenu> {
   int _selectedIndex = 0;
-  static const List<Widget> _pages = <Widget>[HistoryPage()];
+
+  late final List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+   
+    _pages = [
+      HomePage(bearerToken: widget.bearerToken),
+      HistoryPage(bearerToken: widget.bearerToken),
+    ];
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -18,41 +30,22 @@ class _MainMenuState extends State<MainMenu> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    _selectedIndex = 0;
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: DoubleBack(
-        child: _pages[_selectedIndex],
-        waitForSecondBackPress: 4,
-        onFirstBackPress: (context) {
-          return Fluttertoast.showToast(
-              msg: "Press",
-              gravity: ToastGravity.BOTTOM,
-              toastLength: Toast.LENGTH_LONG,
-              backgroundColor: Colors.blueGrey,
-              textColor: Colors.white,
-              fontSize: 14);
-        },
-      ),
-      
+      body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Color(0xFF0284C7),
+        backgroundColor: const Color(0xFF0284C7),
         onTap: _onItemTapped,
-        items: [
+        currentIndex: _selectedIndex, 
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Homepage"),
           BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
-          BottomNavigationBarItem(icon: Icon(Icons.article), label: "Article")
+          BottomNavigationBarItem(icon: Icon(Icons.article), label: "Article"),
         ],
-        selectedItemColor: Colors.white, // Warna ikon yang terpilih (aktif)
-        unselectedItemColor: Colors.white, 
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70,
       ),
-      
     );
   }
 }

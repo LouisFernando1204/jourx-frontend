@@ -193,7 +193,12 @@ class _AiRecomendationPageState extends State<AiRecomendationPage> {
                       padding: const EdgeInsets.all(16.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          print('Finish button pressed');
+                          Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const MainMenu(), // Ganti dengan halaman yang sesuai
+                                  ),
+                                );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xff0284c7),

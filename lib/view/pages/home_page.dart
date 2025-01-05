@@ -1,7 +1,12 @@
 part of 'pages.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final String bearerToken;
+
+  const HomePage({
+    super.key,
+    required this.bearerToken,
+  });
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -16,7 +21,7 @@ class _HomePageState extends State<HomePage> {
         create: (_) => HomeViewmodel(),
         child: Stack(
           children: [
-            SingleChildScrollView( // Membungkus dengan SingleChildScrollView
+            SingleChildScrollView(
               padding: const EdgeInsets.only(top: 20.0, left: 16.0, right: 16.0),
               child: Container(
                 padding: const EdgeInsets.all(24.0),
@@ -66,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => JournalingPage()),
+                          MaterialPageRoute(builder: (context) => JournalingPage(bearerToken: widget.bearerToken)),
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -106,30 +111,6 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.black,
                       ),
                     ),
-                    // HistoryCard(
-                    //   journalTitle: 'Pengalaman Mendaki Gunung Bromo yang Sangat Menakjubkan',
-                    //   journalDate: 'Kamis, 18 November 2024',
-                    //   categoryValue: 80,
-                    //   onTap: () {
-                    //     print('Card 1 di-tap!');
-                    //   },
-                    // ),
-                    // HistoryCard(
-                    //   journalTitle: 'Pengalaman Mendaki Gunung Bromo yang Sangat Menakjubkan Makan Ayam',
-                    //   journalDate: 'Kamis, 18 November 2024',
-                    //   categoryValue: 90,
-                    //   onTap: () {
-                    //     print('Card 1 di-tap!');
-                    //   },
-                    // ),
-                    // HistoryCard(
-                    //   journalTitle: 'Pengalaman Mendaki Gunung Bromo yang Sangat Menakjubkan Makan Ayam',
-                    //   journalDate: 'Kamis, 18 November 2024',
-                    //   categoryValue: 10,
-                    //   onTap: () {
-                    //     print('Card 1 di-tap!');
-                    //   },
-                    // ),
                   ],
                 ),
               ),

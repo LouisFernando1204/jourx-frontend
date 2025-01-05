@@ -60,5 +60,24 @@ class DiaryRepository {
     }
   }
 
-  
+  Future<Map<String, dynamic>> postDiary(
+      String content, String bearerToken) async {
+    const String endpoint = '/api/diaries';
+    final Map<String, dynamic> body = {
+      'content': content,
+    };
+
+    try {
+      final response = await _apiServices.postApiResponse(
+        endpoint,
+        body,
+        bearerToken: bearerToken,
+      );
+      print('Diary posted successfully: $response');
+      return response; // Kembalikan data
+    } catch (e) {
+      print('Error posting diary: $e');
+      throw e;
+    }
+  }
 }

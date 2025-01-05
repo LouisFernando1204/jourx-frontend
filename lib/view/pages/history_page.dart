@@ -1,7 +1,12 @@
 part of 'pages.dart';
 
 class HistoryPage extends StatefulWidget {
-  const HistoryPage({super.key});
+  final String bearerToken;
+
+  const HistoryPage({
+    super.key,
+    required this.bearerToken,
+  });
 
   @override
   State<HistoryPage> createState() => _HistoryPageState();
@@ -16,7 +21,7 @@ class _HistoryPageState extends State<HistoryPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<DiaryViewmodel>(context, listen: false).getDiaryList(
-          '1|TBHGYu1mVtGg3zwtnA4vcoi0O0iejmlFSFbvHhUx6106c8a4'); //ganti dengan token user yang sedang login
+          widget.bearerToken); 
     });
   }
 
@@ -47,21 +52,21 @@ class _HistoryPageState extends State<HistoryPage> {
             padding: const EdgeInsets.all(19.0),
             child: TextField(
               controller: _searchController,
-              style: const TextStyle(color: Colors.black), // Warna teks hitam
+              style: const TextStyle(color: Colors.black), 
               decoration: InputDecoration(
                 hintText: 'Search...',
                 hintStyle:
-                    const TextStyle(color: Colors.grey), // Warna hint abu-abu
-                filled: true, // Mengaktifkan pengisian warna latar belakang
+                    const TextStyle(color: Colors.grey), 
+                filled: true,
                 fillColor:
-                    Colors.grey.shade200, // Warna latar belakang abu-abu terang
+                    Colors.grey.shade200,
                 border: OutlineInputBorder(
-                  borderSide: BorderSide.none, // Menghilangkan border
+                  borderSide: BorderSide.none, 
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
-                      color: Colors.black), // Border hitam saat fokus
+                      color: Colors.black),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 contentPadding: const EdgeInsets.symmetric(
@@ -121,7 +126,7 @@ class _HistoryPageState extends State<HistoryPage> {
                         MaterialPageRoute(
                           builder: (context) => JournalResultPage(
                             bearerToken:
-                                '1|TBHGYu1mVtGg3zwtnA4vcoi0O0iejmlFSFbvHhUx6106c8a4', // Ganti sesuai token Anda
+                                widget.bearerToken, 
                             diaryID: history.id!,
                           ),
                         ),

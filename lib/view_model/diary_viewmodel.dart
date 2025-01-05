@@ -7,17 +7,20 @@ class DiaryViewmodel with ChangeNotifier {
   final _diaryRepo = DiaryRepository();
 
   ApiResponse<List<Diary>> diaryList = ApiResponse.loading();
-  setDiaryList(ApiResponse<List<Diary>> response) {
+
+  void setDiaryList(ApiResponse<List<Diary>> response) {
     diaryList = response;
     notifyListeners();
   }
 
-  Future<dynamic> getDiaryList(String bearerToken) async {
-    _diaryRepo.fetchDiaryList(bearerToken).then((value) {
-      setDiaryList(ApiResponse.completed(value));
-    }).onError((error, stackTrace) {
-      setDiaryList(ApiResponse.error(error.toString()));
-    });
+  Future<void> getDiaryList(String bearerToken) async {
+    setDiaryList(ApiResponse.loading());
+    try {
+      final List<Diary> diaries = await _diaryRepo.fetchDiaryList(bearerToken);
+      setDiaryList(ApiResponse.completed(diaries));
+    } catch (e) {
+      setDiaryList(ApiResponse.error(e.toString()));
+    }
   }
 
   ApiResponse<Diary> diaryDetail = ApiResponse.loading();
@@ -26,13 +29,36 @@ class DiaryViewmodel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<dynamic> getDiaryDetail(String diaryId, String bearerToken) async {
-    _diaryRepo.fetchDiaryDetails(diaryId, bearerToken).then((value) {
-      
-      setDiaryDetail(ApiResponse.completed(value));
-      print('API Response: $value'); // Log response for debugging
-    }).onError((error, stackTrace) {
-      setDiaryDetail(ApiResponse.error(error.toString()));
-    });
+  Future<void> getDiaryDetail(String diaryId, String bearerToken) async {
+    setDiaryDetail(ApiResponse.loading());
+    try {
+      final diary = await _diaryRepo.fetchDiaryDetails(diaryId, bearerToken);
+      setDiaryDetail(ApiResponse.completed(diary));
+      print('API Response: $diary');
+    } catch (e) {
+      setDiaryDetail(ApiResponse.error(e.toString()));
+    }
+  }
+
+  ApiResponse<Map<String, dynamic>> diaryResponse = ApiResponse.loading();
+
+  void setDiaryResponse(ApiResponse<Map<String, dynamic>> response) {
+    diaryResponse = response;
+    notifyListeners();
+  }
+
+  Future<Map<String, dynamic>> postDiary({
+    required String content,
+    required String bearerToken,
+  }) async {
+    setDiaryResponse(ApiResponse.loading());
+
+    try {
+      final response = await _diaryRepo.postDiary(content, bearerToken);
+      return response;
+    } catch (e) {
+      setDiaryResponse(ApiResponse.error(e.toString()));
+      throw e;
+    }
   }
 }

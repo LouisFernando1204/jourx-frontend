@@ -12,6 +12,21 @@ void main() async {
   // await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
+
+// void main() async {
+//   final apiService = NetworkApiServices(); // Pastikan `ApiService` sudah diinisialisasi.
+//   final postDiaryRepository = DiaryRepository();
+
+//   const String bearerToken = '1|TBHGYu1mVtGg3zwtnA4vcoi0O0iejmlFSFbvHhUx6106c8a4'; // Ganti dengan token Anda.
+//   const String content = 'info aku pusing 7 keliling plisss aw aw aw';
+
+//   try {
+//     await postDiaryRepository.postDiary(content, bearerToken);
+//     print('Diary successfully posted!');
+//   } catch (e) {
+//     print('Failed to post diary: $e');
+//   }
+// }
 // void main() async {
 //   WidgetsFlutterBinding.ensureInitialized(); // Pastikan Flutter terinisialisasi sebelum fungsi async
 

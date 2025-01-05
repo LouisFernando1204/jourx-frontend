@@ -225,7 +225,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.normal,
                           fontSize: 14,
-                          color: Colors.black), // Default color
+                          color: Colors.black),
                       children: const <TextSpan>[
                         TextSpan(
                           text: "Belum punya akun? ",

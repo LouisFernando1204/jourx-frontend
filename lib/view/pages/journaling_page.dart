@@ -1,7 +1,12 @@
 part of 'pages.dart';
 
 class JournalingPage extends StatefulWidget {
-  const JournalingPage({super.key});
+  final String bearerToken;
+
+  const JournalingPage({
+    super.key,
+    required this.bearerToken,
+  });
 
   @override
   State<JournalingPage> createState() => _JournalingPageState();
@@ -14,6 +19,8 @@ class _JournalingPageState extends State<JournalingPage> {
   String _text = "";
   bool _isButtonEnabled = false;
 
+  final viewModel = DiaryViewmodel();
+  int? diaryId;
   @override
   void initState() {
     super.initState();
@@ -23,10 +30,11 @@ class _JournalingPageState extends State<JournalingPage> {
   }
 
   void _handleTextChange() {
-    setState(() {
-      _isButtonEnabled = _textController.text.trim().isNotEmpty;
-    });
-  }
+  setState(() {
+    _text = _textController.text; 
+    _isButtonEnabled = _text.trim().isNotEmpty; 
+  });
+}
 
   void _startListening() async {
     bool available = await _speech.initialize();
@@ -59,11 +67,9 @@ class _JournalingPageState extends State<JournalingPage> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: AppBar(
-          automaticallyImplyLeading:
-              false, // Menonaktifkan tombol kembali otomatis
+          automaticallyImplyLeading: false,
           title: Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 19.0), // Menambahkan padding horizontal
+            padding: const EdgeInsets.symmetric(horizontal: 19.0),
             child: Center(
               child: Text(
                 'Write Journal',
@@ -77,8 +83,7 @@ class _JournalingPageState extends State<JournalingPage> {
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.of(context)
-                  .pop(); // Navigasi kembali ke halaman sebelumnya
+              Navigator.of(context).pop();
             },
           ),
         ),
@@ -98,15 +103,14 @@ class _JournalingPageState extends State<JournalingPage> {
                   children: [
                     Text.rich(
                       TextSpan(
-                        text: 'Write down what ', // Teks biasa
+                        text: 'Write down what ',
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.normal,
                             fontSize: 32,
                             color: Colors.black),
                         children: <TextSpan>[
                           TextSpan(
-                            text:
-                                'you are feeling!', // Teks dengan gaya yang berbeda
+                            text: 'you are feeling!',
                             style: GoogleFonts.poppins(
                               color: Color(0xff0284c7),
                               fontWeight: FontWeight.bold,
@@ -116,7 +120,6 @@ class _JournalingPageState extends State<JournalingPage> {
                         ],
                       ),
                     ),
-
                     const SizedBox(height: 8.0),
                     Text(
                       "Jumat, 27 Oktober 2024",
@@ -180,7 +183,6 @@ class _JournalingPageState extends State<JournalingPage> {
                       ),
                     ),
                     const SizedBox(height: 24.0),
-                    // Spacer to push the button to the bottom
                     Spacer(),
                     SizedBox(
                       width: double.infinity,
@@ -195,9 +197,29 @@ class _JournalingPageState extends State<JournalingPage> {
                           ),
                         ),
                         onPressed: _isButtonEnabled
-                            ? () {
-                                print(
-                                    'Jurnal tersimpan: ${_textController.text}');
+                            ? () async {
+                                setState(() {
+                                  _isButtonEnabled = false;
+                                });
+                                final response = await viewModel.postDiary(
+                                  content: _text,
+                                  bearerToken: widget.bearerToken,
+                                );
+
+                                final responseId = response["data"]["id"];
+                                setState(() {
+                                  diaryId = responseId;
+                                });
+                                print('Response: $diaryId');
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AiRecomendationPage(
+                                        bearerToken: widget.bearerToken,
+                                        diaryID: diaryId!),
+                                  ),
+                                );
                               }
                             : null,
                         child: Text(
@@ -222,28 +244,3 @@ class _JournalingPageState extends State<JournalingPage> {
   }
 }
 
-class WavePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.orange
-      ..style = PaintingStyle.fill;
-
-    final path = Path()
-      ..moveTo(0, size.height * 0.7)
-      ..quadraticBezierTo(
-          size.width * 0.25, size.height, size.width * 0.5, size.height * 0.8)
-      ..quadraticBezierTo(
-          size.width * 0.75, size.height * 0.6, size.width, size.height * 0.7)
-      ..lineTo(size.width, 0)
-      ..lineTo(0, 0)
-      ..close();
-
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
-}
