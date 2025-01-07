@@ -6,11 +6,14 @@ import 'package:jourx/repository/diary_repository.dart';
 class DiaryViewmodel with ChangeNotifier {
   final _diaryRepo = DiaryRepository();
 
-  ApiResponse<List<Diary>> diaryList = ApiResponse.loading();
+  ApiResponse<List<Diary>> _diaryList = ApiResponse.loading();
+  ApiResponse<List<Diary>> get diaryList => _diaryList;
 
   void setDiaryList(ApiResponse<List<Diary>> response) {
-    diaryList = response;
-    notifyListeners();
+    if (_diaryList != response) {
+      _diaryList = response;
+      notifyListeners();
+    }
   }
 
   Future<void> getDiaryList(String bearerToken) async {
@@ -61,4 +64,5 @@ class DiaryViewmodel with ChangeNotifier {
       throw e;
     }
   }
+  
 }
