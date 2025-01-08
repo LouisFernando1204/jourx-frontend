@@ -64,5 +64,4 @@ class DiaryViewmodel with ChangeNotifier {
       throw e;
     }
   }
-  
 }

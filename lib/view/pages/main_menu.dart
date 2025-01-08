@@ -1,8 +1,10 @@
 part of 'pages.dart';
 
 class MainMenu extends StatefulWidget {
-  const MainMenu({super.key});
-  final String bearerToken = '1|TBHGYu1mVtGg3zwtnA4vcoi0O0iejmlFSFbvHhUx6106c8a4';
+  const MainMenu({super.key, required this.username});
+  final String bearerToken =
+      '8|LM1S9VwmzgxEeEZOjLQ0Tw78qDY7QXV104nRMymee216d825';
+  final String username;
 
   @override
   State<MainMenu> createState() => _MainMenuState();
@@ -16,10 +18,11 @@ class _MainMenuState extends State<MainMenu> {
   @override
   void initState() {
     super.initState();
-   
+
     _pages = [
-      HomePage(bearerToken: widget.bearerToken),
+      HomePage(bearerToken: widget.bearerToken, username: widget.username),
       HistoryPage(bearerToken: widget.bearerToken),
+      ArticleListPage()
     ];
   }
 
@@ -37,7 +40,7 @@ class _MainMenuState extends State<MainMenu> {
         type: BottomNavigationBarType.fixed,
         backgroundColor: const Color(0xFF0284C7),
         onTap: _onItemTapped,
-        currentIndex: _selectedIndex, 
+        currentIndex: _selectedIndex,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Homepage"),
           BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),

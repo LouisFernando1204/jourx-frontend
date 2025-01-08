@@ -24,33 +24,55 @@ class _JournalingPageState extends State<JournalingPage> {
   @override
   void initState() {
     super.initState();
+    requestMicrophonePermission();
     _speech = stt.SpeechToText();
     _textController = TextEditingController(text: _text);
     _textController.addListener(_handleTextChange);
   }
 
+  Future<void> requestMicrophonePermission() async {
+    var status = await Permission.microphone.status;
+    if (!status.isGranted) {
+      var result = await Permission.microphone.request();
+      if (!result.isGranted) {
+        print("Microphone permission not granted");
+      }
+    }
+  }
+
   void _handleTextChange() {
-  setState(() {
-    _text = _textController.text; 
-    _isButtonEnabled = _text.trim().isNotEmpty; 
-  });
-}
+    setState(() {
+      _text = _textController.text;
+      _isButtonEnabled = _text.trim().isNotEmpty;
+    });
+  }
 
   void _startListening() async {
-    bool available = await _speech.initialize();
-    if (available) {
-      setState(() {
-        _isListening = true;
-      });
-      _speech.listen(
-        localeId: 'id-ID',
-        onResult: (result) {
-          setState(() {
-            _text = result.recognizedWords;
-            _textController.text = _text;
-          });
-        },
+    try {
+      bool available = await _speech.initialize(
+        onError: (val) => print("Speech Error: $val"),
+        onStatus: (val) => print("Speech Status: $val"),
       );
+      if (available) {
+        setState(() {
+          _isListening = true;
+        });
+        _speech.listen(
+          localeId: 'id-ID',
+          listenFor: Duration(seconds: 30),
+          pauseFor: Duration(seconds: 60),
+          onResult: (result) {
+            setState(() {
+              _text = result.recognizedWords;
+              _textController.text = _text;
+            });
+          },
+        );
+      } else {
+        print("Speech-to-Text is not available");
+      }
+    } catch (e) {
+      print("Error initializing Speech-to-Text: $e");
     }
   }
 
@@ -210,7 +232,7 @@ class _JournalingPageState extends State<JournalingPage> {
                                 setState(() {
                                   diaryId = responseId;
                                 });
-                                print('Response: $diaryId');
+                                print('DIARY RESPONSE: $response');
 
                                 Navigator.push(
                                   context,
@@ -243,4 +265,3 @@ class _JournalingPageState extends State<JournalingPage> {
     );
   }
 }
-

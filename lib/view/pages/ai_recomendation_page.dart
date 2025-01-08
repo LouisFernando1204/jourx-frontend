@@ -1,6 +1,5 @@
 part of 'pages.dart';
 
-
 class AiRecomendationPage extends StatefulWidget {
   final String bearerToken;
   final int diaryID;
@@ -194,11 +193,13 @@ class _AiRecomendationPageState extends State<AiRecomendationPage> {
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const MainMenu(), // Ganti dengan halaman yang sesuai
-                                  ),
-                                );
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MainMenu(
+                                  username:
+                                      "Jessica"), // Ganti dengan halaman yang sesuai
+                            ),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xff0284c7),
