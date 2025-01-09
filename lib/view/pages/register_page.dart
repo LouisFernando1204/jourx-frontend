@@ -10,14 +10,13 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   LoginViewmodel loginViewmodel = LoginViewmodel();
 
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController birthdateController = TextEditingController();
 
   String? selectedGender;
 
-  // Date picker function
   Future<void> _selectDate(BuildContext context) async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -48,7 +47,7 @@ class _RegisterPageState extends State<RegisterPage> {
               height: MediaQuery.of(context).size.height * 0.4,
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.orange, Colors.deepOrange],
+                  colors: [Color(0xFF0284C7), Color(0xFF00B5D4)],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -88,7 +87,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.bold,
                             fontSize: 22,
-                            color: Colors.orange,
+                            color: Color(0xFF0284C7),
                           ),
                         ),
                         const SizedBox(height: 8.0),
@@ -102,6 +101,21 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         const SizedBox(height: 24.0),
 
+                        // Name Field
+                        Text(
+                          "Name",
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(height: 12.0),
+                        _buildTextField(
+                            nameController, 'Bisa kenalan? Siapa namamu?'),
+
+                        const SizedBox(height: 16.0),
+
                         // Email Field
                         Text(
                           "Email",
@@ -113,22 +127,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         const SizedBox(height: 12.0),
                         _buildTextField(
-                            emailController, 'Isi email dan mulai ceritamu!'),
-
-                        const SizedBox(height: 16.0),
-
-                        // Username Field
-                        Text(
-                          "Username",
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                        ),
-                        const SizedBox(height: 12.0),
-                        _buildTextField(
-                            usernameController, 'Isi username unik kamu!'),
+                            emailController, 'Isi emailmu juga yaa'),
 
                         const SizedBox(height: 16.0),
 
@@ -177,11 +176,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         const SizedBox(height: 12.0),
                         DropdownButtonFormField<String>(
                           value: selectedGender,
-                          items: [
+                          items: const [
                             DropdownMenuItem(
-                                child: Text("Laki-laki"), value: "Laki-laki"),
+                                child: Text("Laki-laki"), value: "male"),
                             DropdownMenuItem(
-                                child: Text("Perempuan"), value: "Perempuan"),
+                                child: Text("Perempuan"), value: "female"),
+                            DropdownMenuItem(
+                                child: Text("Lainnya"), value: "other"),
                           ],
                           onChanged: (value) {
                             setState(() {
@@ -204,27 +205,53 @@ class _RegisterPageState extends State<RegisterPage> {
                           width: double.infinity,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.orange,
+                              backgroundColor: Color(0xFF0284C7),
                               padding:
                                   const EdgeInsets.symmetric(vertical: 14.0),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                             ),
-                            onPressed: () {
-                              if (emailController.text.isNotEmpty &&
-                                  usernameController.text.isNotEmpty &&
+                            onPressed: () async {
+                              if (nameController.text.isNotEmpty &&
+                                  emailController.text.isNotEmpty &&
                                   passwordController.text.isNotEmpty &&
                                   birthdateController.text.isNotEmpty &&
                                   selectedGender != null) {
-                                // Call registration method
-                                loginViewmodel.registerAccount(
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content:
+                                        Text('Sedang memproses registrasi...'),
+                                    backgroundColor: Colors.blue,
+                                    duration: Duration(
+                                        seconds:
+                                            3), // Durasi menampilkan SnackBar
+                                  ),
+                                );
+                                await loginViewmodel.registerAccount(
+                                  nameController.text,
                                   emailController.text,
-                                  usernameController.text,
                                   passwordController.text,
                                   birthdateController.text,
                                   selectedGender!,
                                 );
+                                if (loginViewmodel.registerStatus ==
+                                    Status.success) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('Akun ${loginViewmodel.user!.email} berhasil terdaftar!'),
+                                      backgroundColor: Colors.green,
+                                    ),
+                                  );
+                                } else if (loginViewmodel.registerStatus ==
+                                    Status.error) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('Registrasi gagal! ${loginViewmodel.registerErrorMessage}'),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
@@ -267,8 +294,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                     style: TextStyle(color: Colors.black),
                                   ),
                                   TextSpan(
-                                    text: "Daftar di sini.",
-                                    style: TextStyle(color: Colors.orange),
+                                    text: "Masuk di sini.",
+                                    style: TextStyle(color: Color(0xFF0284C7)),
                                   ),
                                 ],
                               ),

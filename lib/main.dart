@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:jourx/view/pages/pages.dart'; // Pastikan Anda mengganti path ini ke lokasi sebenarnya dari PricePage
+import 'package:jourx/view/pages/pages.dart';
+import 'package:jourx/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   print("Starting app...");
-  // await dotenv.load(fileName: ".env");
+  // // await dotenv.load(fileName: ".env");
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 
@@ -13,14 +21,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Pricing App',
-      debugShowCheckedModeBanner:
-          false, 
+      title: 'JourX',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const JournalingPage(), // Mengganti halaman utama menjadi PricePage
+      home: const LoginPage(),
     );
   }
 }

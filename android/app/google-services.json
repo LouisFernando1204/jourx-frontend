@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "798911394468",
+    "project_id": "jourx-c9bc3",
+    "storage_bucket": "jourx-c9bc3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:798911394468:android:6e22f61a15944015446c31",
+        "android_client_info": {
+          "package_name": "com.example.jourx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "798911394468-lq7afdt0v3sulc34buffbb4mmiofo845.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCq2Y4tRh8Ts6qeB-670Arp3qau-JsbV5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "798911394468-lq7afdt0v3sulc34buffbb4mmiofo845.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "798911394468-i9i6ld5gub2jtr2m3qur23alts4616lm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.jourx"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:798911394468:android:55a449703137248c446c31",
+        "android_client_info": {
+          "package_name": "com.jourx.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "798911394468-lq7afdt0v3sulc34buffbb4mmiofo845.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCq2Y4tRh8Ts6qeB-670Arp3qau-JsbV5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "798911394468-lq7afdt0v3sulc34buffbb4mmiofo845.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "798911394468-i9i6ld5gub2jtr2m3qur23alts4616lm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.jourx"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
