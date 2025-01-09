@@ -9,39 +9,56 @@ import 'package:jourx/data/app_exception.dart';
 
 class NetworkApiServices implements BaseApiServices {
   @override
-  Future getApiResponse(String endpoint) async {
+  Future getApiResponse(String endpoint, {String? bearerToken}) async {
     dynamic responseJson;
     try {
-      final response = await http
-          .get(Uri.https(Const.baseUrl, endpoint), headers: <String, String>{
+      final headers = <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'key': Const.apiKey,
-      });
+      };
+
+      if (bearerToken != null && bearerToken.isNotEmpty) {
+        headers['Authorization'] = 'Bearer $bearerToken';
+      }
+
+      final response = await http.get(
+        Uri.parse('${Const.baseUrl}$endpoint'),
+        headers: headers,
+      );
+
       responseJson = returnResponse(response);
     } on SocketException {
-      throw NoInternetException('');
+      throw NoInternetException('No Internet connection.');
     } on TimeoutException {
-      throw FetchDataException('Network request time out!');
+      throw FetchDataException('Network request timed out!');
     }
 
     return responseJson;
   }
 
   @override
-  Future<dynamic> postApiResponse(String endpoint, dynamic data) async {
+  Future<dynamic> postApiResponse(String endpoint, dynamic data,
+      {String? bearerToken}) async {
     dynamic responseJson;
     try {
       print(data);
+
+      final headers = <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      };
+
+      if (bearerToken != null && bearerToken.isNotEmpty) {
+        headers['Authorization'] = 'Bearer $bearerToken';
+      }
+
       final response = await http.post(
-        Uri.https(Const.baseUrl, endpoint),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'key': Const.apiKey,
-        },
+        Uri.parse('${Const.baseUrl}$endpoint'),
+        headers: headers,
         body: jsonEncode(data),
       );
+
       responseJson = returnResponse(response);
       print("RESPONSE");
+
       return responseJson;
     } on SocketException {
       throw NoInternetException('No internet connection!');
@@ -61,12 +78,13 @@ class NetworkApiServices implements BaseApiServices {
         return responseJson;
       case 400:
         throw BadRequestException(response.body.toString());
-      case 500:
       case 404:
-        throw UnauthorisedException(response.body.toString());
+        throw NotFoundException('Resource not found: ${response.body}');
+      case 500:
+        throw ServerErrorException('Server error: ${response.body}');
       default:
         throw FetchDataException(
-            'Error occured while communicating with server');
+            'Error occurred while communicating with server');
     }
   }
 }

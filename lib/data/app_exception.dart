@@ -11,25 +11,42 @@ class AppException implements Exception {
   }
 }
 
-class FetchDataException extends AppException {
-  FetchDataException([String? message])
-      : super(message, 'Error during communication');
+class FetchDataException implements Exception {
+  final String message;
+  FetchDataException(this.message);
+
+  @override
+  String toString() => 'FetchDataException: $message';
 }
 
-class BadRequestException extends AppException {
-  BadRequestException([String? message]) : super(message, 'Invalid request');
+class NoInternetException implements Exception {
+  final String message;
+  NoInternetException(this.message);
+
+  @override
+  String toString() => 'NoInternetException: $message';
 }
 
-class UnauthorisedException extends AppException {
-  UnauthorisedException([String? message])
-      : super(message, 'Unauthorised request');
+class BadRequestException implements Exception {
+  final String message;
+  BadRequestException(this.message);
+
+  @override
+  String toString() => 'BadRequestException: $message';
 }
 
-class InvalidInputException extends AppException {
-  InvalidInputException([String? message]) : super(message, 'Invalid Input');
+class NotFoundException implements Exception {
+  final String message;
+  NotFoundException(this.message);
+
+  @override
+  String toString() => 'NotFoundException: $message';
 }
 
-class NoInternetException extends AppException {
-  NoInternetException([String? message])
-      : super(message, 'No Internet Connection');
+class ServerErrorException implements Exception {
+  final String message;
+  ServerErrorException(this.message);
+
+  @override
+  String toString() => 'ServerErrorException: $message';
 }
