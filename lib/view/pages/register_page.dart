@@ -12,7 +12,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController birthdateController = TextEditingController();
 
@@ -132,21 +131,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
                         const SizedBox(height: 16.0),
 
-                        // Username Field
-                        Text(
-                          "Username",
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                        ),
-                        const SizedBox(height: 12.0),
-                        _buildTextField(
-                            usernameController, 'Isi username unik kamu!'),
-
-                        const SizedBox(height: 16.0),
-
                         // Password Field
                         Text(
                           "Password",
@@ -231,7 +215,6 @@ class _RegisterPageState extends State<RegisterPage> {
                             onPressed: () async {
                               if (nameController.text.isNotEmpty &&
                                   emailController.text.isNotEmpty &&
-                                  usernameController.text.isNotEmpty &&
                                   passwordController.text.isNotEmpty &&
                                   birthdateController.text.isNotEmpty &&
                                   selectedGender != null) {
@@ -247,7 +230,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                 );
                                 await loginViewmodel.registerAccount(
                                   nameController.text,
-                                  usernameController.text,
                                   emailController.text,
                                   passwordController.text,
                                   birthdateController.text,
@@ -256,8 +238,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                 if (loginViewmodel.registerStatus ==
                                     Status.success) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Registrasi berhasil!'),
+                                    SnackBar(
+                                      content: Text('Akun ${loginViewmodel.user!.email} berhasil terdaftar!'),
                                       backgroundColor: Colors.green,
                                     ),
                                   );

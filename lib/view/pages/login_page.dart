@@ -15,38 +15,41 @@ class _LoginPageState extends State<LoginPage> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  User? _user;
+  User? user;
+  bool notRegistered = false;
 
   Future<dynamic> handleGoogleSignIn() async {
+    notRegistered = false;
+    user = null;
+
     try {
       final GoogleSignIn googleSignIn = GoogleSignIn();
       await googleSignIn.signOut();
+
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
-      if (googleUser == null) {
-        return;
-      }
-      
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+      if (googleUser != null) {
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
 
-      await loginViewmodel.checkAccount(googleUser.email);
-
-      if (loginViewmodel.checkAccountStatus != Status.error) {
-        
         final OAuthCredential credential = GoogleAuthProvider.credential(
           accessToken: googleAuth.accessToken,
           idToken: googleAuth.idToken,
         );
 
-        UserCredential userCredential = await _auth.signInWithCredential(credential);
+        UserCredential userCredential =
+            await _auth.signInWithCredential(credential);
 
-        setState(() {
-          _user = userCredential.user;
-        });
+        if (userCredential.additionalUserInfo!.isNewUser) {
+          notRegistered = true;
+        }
 
+        user = userCredential.user;
+
+        return true;
       }
 
+      return false;
     } catch (error) {
       rethrow;
     }
@@ -57,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     _auth.authStateChanges().listen((event) {
       setState(() {
-        _user = event;
+        user = event;
       });
     });
   }
@@ -219,7 +222,7 @@ class _LoginPageState extends State<LoginPage> {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                            'Berhasil login sebagai ${loginViewmodel.user?.name}!'),
+                                            'Berhasil login sebagai ${loginViewmodel.user?.email}!'),
                                         backgroundColor: Colors.green,
                                       ),
                                     );
@@ -266,31 +269,67 @@ class _LoginPageState extends State<LoginPage> {
                           Center(
                             child: GestureDetector(
                               onTap: () async {
+                                var success = await handleGoogleSignIn();
+                                if (success) {
+                                  if (notRegistered) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content:
+                                            Text('Mengarahkan ke kolom registrasi...'),
+                                        backgroundColor: Colors.blue,
+                                      ),
+                                    );
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ColumnPage(user: user)));
+                                  } else {
+                                    // if (user != null) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content:
+                                            Text('Sedang memproses akun...'),
+                                        backgroundColor: Colors.blue,
+                                      ),
+                                    );
 
-                                await handleGoogleSignIn();
+                                    await loginViewmodel.loginAccountFromGmail(
+                                        user!.uid, user!.email!);
 
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(const SnackBar(
-                                  content: Text('Sedang memproses akun...'),
-                                  backgroundColor: Colors.blue,
-                                  duration: Duration(seconds: 3),
-                                ));
-
-                                if (loginViewmodel.checkAccountStatus ==
-                                    Status.success) {
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    content: Text('Berhasil login sebagai ${loginViewmodel.loginUser!.email}!'),
-                                    backgroundColor: Colors.green,
-                                  ));
-                                } else if (loginViewmodel.checkAccountStatus ==
-                                    Status.error) {
+                                    if (loginViewmodel.loginFromGmailStatus ==
+                                        Status.success) {
                                       ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    content: Text('Login gagal: ${loginViewmodel.checkAccountErrorMessage}!'),
-                                    backgroundColor: Colors.red,
-                                  ));
-                                    }
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                              'Berhasil login sebagai ${loginViewmodel.user?.email}!'),
+                                          backgroundColor: Colors.green,
+                                        ),
+                                      );
+                                    } else if (loginViewmodel
+                                            .loginFromGmailStatus ==
+                                        Status.error) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                              'Login gagal: ${loginViewmodel.loginErrorMessage}'),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                    } 
+                                  }
+                                  // }
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content:
+                                          Text('Login gagal! Harap coba lagi!'),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
                               },
                               child: Container(
                                 decoration: BoxDecoration(

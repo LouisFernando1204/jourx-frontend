@@ -7,13 +7,12 @@ import 'package:jourx/model/model.dart';
 class Repository {
   final apiUrl = "https://jourx.dickyyyy.site";
 
-  Future<Map<String, dynamic>> registerAccount(String name, String username,
-      String email, String password, String ttl, String gender) async {
+  Future<Map<String, dynamic>> registerAccount(String name, String email,
+      String password, String ttl, String gender) async {
     try {
       final response =
           await http.post(Uri.parse("$apiUrl/api/register"), body: {
         'name': name,
-        'username': username,
         'email': email,
         'password': password,
         'birth_date': ttl,
@@ -24,16 +23,35 @@ class Repository {
       var responseMessage = jsonResponse['message'];
 
       if (response.statusCode == 201) {
-        return {'status': Status.success, 'message': responseMessage};
+        var userData = jsonResponse['data']['user'];
+        User user = User.fromJson(userData);
+        var tokenResponse = jsonResponse['token'];
+
+        return {
+          'status': Status.success,
+          'user': user,
+          'token': tokenResponse,
+          'message': 'Register berhasil!'
+        };
       } else {
         print("masuk sini errornya 2");
 
-        return {'status': Status.error, 'message': responseMessage};
+        return {
+          'status': Status.error,
+          'user': null,
+          'token': null,
+          'message': responseMessage
+        };
       }
     } catch (error) {
       print("masuk sini errornya");
 
-      return {'status': Status.error, 'message': error.toString()};
+      return {
+        'status': Status.error,
+        'user': null,
+        'token': null,
+        'message': error.toString()
+      };
     }
   }
 
@@ -47,10 +65,12 @@ class Repository {
       if (response.statusCode == 200) {
         var userData = jsonResponse['data']['user'];
         User user = User.fromJson(userData);
+        var tokenResponse = jsonResponse['token'];
 
         return {
           'status': Status.success,
           'user': user,
+          'token': tokenResponse,
           'message': 'Login berhasil!'
         };
       } else {
@@ -59,6 +79,7 @@ class Repository {
         return {
           'status': Status.error,
           'user': null,
+          'token': null,
           'message': responseMessage
         };
       }
@@ -66,44 +87,111 @@ class Repository {
       return {
         'status': Status.error,
         'user': null,
+        'token': null,
         'message': 'Validation failed!'
       };
     }
   }
 
-  Future<Map<String, dynamic>> checkAccount(String email) async {
+  Future<Map<String, dynamic>> registerAccountFromGmail(
+      String name, String ttl, String gender, String email, String uid) async {
     try {
       final response = await http
-          .post(Uri.parse("$apiUrl/api/check_user"), body: {'email': email});
-      print(email);
+          .post(Uri.parse("$apiUrl/api/register_with_google"), body: {
+        'name': name,
+        'email': email,
+        'uid': uid,
+        'birth_date': ttl,
+        'gender': gender
+      });
 
       var jsonResponse = jsonDecode(response.body);
+      var responseMessage = jsonResponse['message'];
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         var userData = jsonResponse['data']['user'];
-        User user = User.fromJson(userData);
+        User returnUser = User.fromJson(userData);
+        User user = User(
+            userId: returnUser.userId,
+            uid: returnUser.uid,
+            name: returnUser.name,
+            email: email,
+            birthDate: returnUser.birthDate,
+            gender: returnUser.gender);
+        var tokenResponse = jsonResponse['token'];
 
         return {
           'status': Status.success,
           'user': user,
-          'message': 'Email ditemukan!'
+          'token': tokenResponse,
+          'message': 'Register berhasil!'
         };
       } else {
-        print("masuk sini errornya 2");
-        var responseMessage = jsonResponse['message'];
-
         return {
           'status': Status.error,
           'user': null,
+          'token': null,
           'message': responseMessage
         };
       }
     } catch (_) {
-      print("masuk sini errornya");
-
       return {
         'status': Status.error,
         'user': null,
+        'token': null,
+        'message': 'Validation failed!'
+      };
+    }
+  }
+
+  Future<Map<String, dynamic>> loginAccountFromGmail(
+      String uid, String email) async {
+    try {
+      final response =
+          await http.post(Uri.parse("$apiUrl/api/login_with_google"), body: {
+        'uid': uid,
+      });
+
+      var jsonResponse = jsonDecode(response.body);
+      var responseMessage = jsonResponse['message'];
+
+      if (response.statusCode == 200) {
+        var userData = jsonResponse['data']['user'];
+        User returnUser = User.fromJson(userData);
+
+        User user = User(
+            userId: returnUser.userId,
+            uid: returnUser.uid,
+            name: returnUser.name,
+            email: email,
+            birthDate: returnUser.birthDate,
+            gender: returnUser.gender);
+
+        var tokenResponse = jsonResponse['token'];
+
+        print(user);
+
+        return {
+          'status': Status.success,
+          'user': user,
+          'token': tokenResponse,
+          'message': 'Register berhasil!'
+        };
+      } else {
+        print("masuk sini errornya 2");
+
+        return {
+          'status': Status.error,
+          'user': null,
+          'token': null,
+          'message': responseMessage
+        };
+      }
+    } catch (_) {
+      return {
+        'status': Status.error,
+        'user': null,
+        'token': null,
         'message': 'Validation failed!'
       };
     }
