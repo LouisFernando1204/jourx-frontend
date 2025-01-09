@@ -153,7 +153,6 @@ class Repository {
       });
 
       var jsonResponse = jsonDecode(response.body);
-      var responseMessage = jsonResponse['message'];
 
       if (response.statusCode == 200) {
         var userData = jsonResponse['data']['user'];
@@ -184,7 +183,7 @@ class Repository {
           'status': Status.error,
           'user': null,
           'token': null,
-          'message': responseMessage
+          'message': 'Valudation failed!'
         };
       }
     } catch (_) {
