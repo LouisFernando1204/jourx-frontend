@@ -209,7 +209,9 @@ class _LoginPageState extends State<LoginPage> {
                                     const SnackBar(
                                       content: Text('Sedang memproses akun...'),
                                       backgroundColor: Colors.blue,
-                                      duration: Duration(seconds: 3),
+                                      duration: Duration(
+                                          seconds:
+                                              2), // Durasi menampilkan SnackBar
                                     ),
                                   );
                                   await loginViewmodel.loginWithoutGmail(
@@ -217,13 +219,24 @@ class _LoginPageState extends State<LoginPage> {
                                       passwordController.text);
 
                                   if (loginViewmodel.loginStatus ==
-                                          Status.success &&
+                                          Status.completed &&
                                       loginViewmodel.user != null) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
                                             'Berhasil login sebagai ${loginViewmodel.user?.email}!'),
                                         backgroundColor: Colors.green,
+                                      ),
+                                    );
+
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => MainMenu(
+                                          username: loginViewmodel.user!.name!,
+                                          user: loginViewmodel.user,
+                                          token: loginViewmodel.token,
+                                        ),
                                       ),
                                     );
                                   } else if (loginViewmodel.loginStatus ==
@@ -274,8 +287,8 @@ class _LoginPageState extends State<LoginPage> {
                                   if (notRegistered) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                        content:
-                                            Text('Mengarahkan ke kolom registrasi...'),
+                                        content: Text(
+                                            'Mengarahkan ke kolom registrasi...'),
                                         backgroundColor: Colors.blue,
                                       ),
                                     );
@@ -288,9 +301,12 @@ class _LoginPageState extends State<LoginPage> {
                                     // if (user != null) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                        content:
-                                            Text('Sedang memproses akun...'),
+                                        content: Text(
+                                            'Sedang memproses akun...'),
                                         backgroundColor: Colors.blue,
+                                        duration: Duration(
+                                            seconds:
+                                                2), // Durasi menampilkan SnackBar
                                       ),
                                     );
 
@@ -298,13 +314,25 @@ class _LoginPageState extends State<LoginPage> {
                                         user!.uid, user!.email!);
 
                                     if (loginViewmodel.loginFromGmailStatus ==
-                                        Status.success) {
+                                        Status.completed) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
                                           content: Text(
                                               'Berhasil login sebagai ${loginViewmodel.user?.email}!'),
                                           backgroundColor: Colors.green,
+                                        ),
+                                      );
+
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MainMenu(
+                                            username:
+                                                loginViewmodel.user!.name!,
+                                            user: loginViewmodel.user,
+                                            token: loginViewmodel.token,
+                                          ),
                                         ),
                                       );
                                     } else if (loginViewmodel
@@ -318,7 +346,7 @@ class _LoginPageState extends State<LoginPage> {
                                           backgroundColor: Colors.red,
                                         ),
                                       );
-                                    } 
+                                    }
                                   }
                                   // }
                                 } else {
@@ -359,11 +387,12 @@ class _LoginPageState extends State<LoginPage> {
                           Center(
                             child: GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const RegisterPage()));
+                                context.go('/register');
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) =>
+                                //             const RegisterPage()));
                               },
                               child: RichText(
                                 text: TextSpan(

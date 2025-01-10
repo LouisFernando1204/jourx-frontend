@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:jourx/view_model/login_viewmodel.dart';
 import 'package:jourx/model/model.dart';
+import 'package:jourx/data/response/status.dart';
 
 class Repository {
   final apiUrl = "https://jourx.dickyyyy.site";
@@ -25,10 +25,10 @@ class Repository {
       if (response.statusCode == 201) {
         var userData = jsonResponse['data']['user'];
         User user = User.fromJson(userData);
-        var tokenResponse = jsonResponse['token'];
+        var tokenResponse = jsonResponse['data']['token'];
 
         return {
-          'status': Status.success,
+          'status': Status.completed,
           'user': user,
           'token': tokenResponse,
           'message': 'Register berhasil!'
@@ -65,10 +65,10 @@ class Repository {
       if (response.statusCode == 200) {
         var userData = jsonResponse['data']['user'];
         User user = User.fromJson(userData);
-        var tokenResponse = jsonResponse['token'];
+        var tokenResponse = jsonResponse['data']['token'];
 
         return {
-          'status': Status.success,
+          'status': Status.completed,
           'user': user,
           'token': tokenResponse,
           'message': 'Login berhasil!'
@@ -118,10 +118,10 @@ class Repository {
             email: email,
             birthDate: returnUser.birthDate,
             gender: returnUser.gender);
-        var tokenResponse = jsonResponse['token'];
+        var tokenResponse = jsonResponse['data']['token'];
 
         return {
-          'status': Status.success,
+          'status': Status.completed,
           'user': user,
           'token': tokenResponse,
           'message': 'Register berhasil!'
@@ -166,12 +166,12 @@ class Repository {
             birthDate: returnUser.birthDate,
             gender: returnUser.gender);
 
-        var tokenResponse = jsonResponse['token'];
+        var tokenResponse = jsonResponse['data']['token'];
 
         print(user);
 
         return {
-          'status': Status.success,
+          'status': Status.completed,
           'user': user,
           'token': tokenResponse,
           'message': 'Register berhasil!'

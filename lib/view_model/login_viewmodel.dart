@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:jourx/repository/repository.dart';
 import 'package:jourx/model/model.dart';
+import 'package:jourx/data/response/status.dart';
 
-enum Status { error, success, none }
+// enum LoginRegisterStatus { error, completed, notStarted }
 
 class LoginViewmodel with ChangeNotifier {
   final _repo = Repository();
   User? user;
   String? token;
 
-  Status loginStatus = Status.none;
+  Status loginStatus = Status.notStarted;
   String? loginErrorMessage;
 
   Future<void> loginWithoutGmail(String email, String password) async {
-    loginStatus = Status.none;
+    loginStatus = Status.notStarted;
     loginErrorMessage = "";
     user = null;
     token = "";
@@ -23,7 +24,7 @@ class LoginViewmodel with ChangeNotifier {
       var result = await _repo.loginAccount(email, password);
       loginStatus = result['status'];
 
-      if (loginStatus == Status.success) {
+      if (loginStatus == Status.completed) {
         user = result['user'];
         token = result['token'];
       } else if (loginStatus == Status.error) {
@@ -38,12 +39,12 @@ class LoginViewmodel with ChangeNotifier {
     }
   }
 
-  Status registerStatus = Status.none;
+  Status registerStatus = Status.notStarted;
   String? registerErrorMessage;
 
   Future<void> registerAccount(String name, String email, String password,
       String ttl, String gender) async {
-    registerStatus = Status.none;
+    registerStatus = Status.notStarted;
     registerErrorMessage = "";
     user = null;
     token = "";
@@ -70,12 +71,12 @@ class LoginViewmodel with ChangeNotifier {
     }
   }
 
-  Status registerFromGmailStatus = Status.none;
+  Status registerFromGmailStatus = Status.notStarted;
   String? registerFromGmailErrorMessage;
 
   Future<void> registerAccountFromGmail(
       String name, String ttl, String gender, String email, String uid) async {
-    registerFromGmailStatus = Status.none;
+    registerFromGmailStatus = Status.notStarted;
     registerFromGmailErrorMessage = "";
     user = null;
     token = "";
@@ -102,11 +103,11 @@ class LoginViewmodel with ChangeNotifier {
     }
   }
 
-  Status loginFromGmailStatus = Status.none;
+  Status loginFromGmailStatus = Status.notStarted;
   String? loginFromGmailErrorMessage;
 
   Future<void> loginAccountFromGmail(String uid, String email) async {
-    loginFromGmailStatus = Status.none;
+    loginFromGmailStatus = Status.notStarted;
     loginFromGmailErrorMessage = "";
     user = null;
     token = "";

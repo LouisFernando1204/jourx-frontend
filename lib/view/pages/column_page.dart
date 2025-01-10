@@ -71,8 +71,8 @@ class _ColumnPage extends State<ColumnPage> {
                   mainAxisAlignment: MainAxisAlignment.center, //
                   children: [
                     SizedBox(
-                      height: MediaQuery.of(context).size.height *
-                          0.1), // To provide space from top
+                        height: MediaQuery.of(context).size.height *
+                            0.1), // To provide space from top
                     Padding(
                       padding: const EdgeInsets.all(24.0),
                       child: Container(
@@ -193,7 +193,9 @@ class _ColumnPage extends State<ColumnPage> {
                                         content: Text(
                                             'Sedang memproses registrasi...'),
                                         backgroundColor: Colors.blue,
-                                        duration: Duration(seconds: 3),
+                                        duration: Duration(
+                                            seconds:
+                                                2), // Durasi menampilkan SnackBar
                                       ),
                                     );
                                     await loginViewmodel
@@ -206,13 +208,24 @@ class _ColumnPage extends State<ColumnPage> {
                                     );
                                     if (loginViewmodel
                                             .registerFromGmailStatus ==
-                                        Status.success) {
+                                        Status.completed) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
                                           content: Text(
                                               'Akun ${loginViewmodel.user!.email} berhasil terdaftar!'),
                                           backgroundColor: Colors.green,
+                                        ),
+                                      );
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MainMenu(
+                                            username:
+                                                loginViewmodel.user!.name!,
+                                            user: loginViewmodel.user,
+                                            token: loginViewmodel.token,
+                                          ),
                                         ),
                                       );
                                     } else if (loginViewmodel

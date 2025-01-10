@@ -225,7 +225,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     backgroundColor: Colors.blue,
                                     duration: Duration(
                                         seconds:
-                                            3), // Durasi menampilkan SnackBar
+                                            2), // Durasi menampilkan SnackBar
                                   ),
                                 );
                                 await loginViewmodel.registerAccount(
@@ -236,18 +236,30 @@ class _RegisterPageState extends State<RegisterPage> {
                                   selectedGender!,
                                 );
                                 if (loginViewmodel.registerStatus ==
-                                    Status.success) {
+                                    Status.completed) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text('Akun ${loginViewmodel.user!.email} berhasil terdaftar!'),
+                                      content: Text(
+                                          'Akun ${loginViewmodel.user!.email} berhasil terdaftar!'),
                                       backgroundColor: Colors.green,
+                                    ),
+                                  );
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MainMenu(
+                                        username: loginViewmodel.user!.name!,
+                                        user: loginViewmodel.user,
+                                        token: loginViewmodel.token,
+                                      ),
                                     ),
                                   );
                                 } else if (loginViewmodel.registerStatus ==
                                     Status.error) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text('Registrasi gagal! ${loginViewmodel.registerErrorMessage}'),
+                                      content: Text(
+                                          'Registrasi gagal! ${loginViewmodel.registerErrorMessage}'),
                                       backgroundColor: Colors.red,
                                     ),
                                   );
@@ -277,10 +289,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         Center(
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const LoginPage()));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => const LoginPage()));
+                              context.go('/');
                             },
                             child: RichText(
                               text: TextSpan(
