@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:jourx/data/response/status.dart';
+import 'package:jourx/model/daily_data.dart';
 import 'package:jourx/model/diary.dart';
 import 'package:jourx/view/widgets/widgets.dart';
 import 'package:jourx/view_model/article_viewmodel.dart';
+import 'package:jourx/view_model/daily_data_viewmodel.dart';
 import 'package:jourx/view_model/diary_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:jourx/view_model/login_viewmodel.dart';
@@ -14,6 +16,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:jourx/model/model.dart' as Model;
+import 'package:fl_chart/fl_chart.dart';
 
 part 'login_page.dart';
 part 'register_page.dart';

@@ -6,6 +6,7 @@ import 'package:jourx/view/pages/pages.dart';
 import 'package:jourx/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:jourx/view_model/article_viewmodel.dart';
+import 'package:jourx/view_model/daily_data_viewmodel.dart';
 import 'package:jourx/view_model/diary_viewmodel.dart';
 import 'package:jourx/view_model/login_viewmodel.dart';
 import 'package:provider/provider.dart'; // Pastikan Anda mengganti path ini ke lokasi sebenarnya dari PricePage
@@ -24,7 +25,7 @@ void main() async {
   final GoRouter router = GoRouter(
     routes: [
       GoRoute(
-        path: '/',
+        path: '/sucess',
         name: 'Login Page',
         builder: (context, state) => const LoginPage(),
       ),
@@ -34,7 +35,7 @@ void main() async {
         builder: (context, state) => const RegisterPage(),
       ),
       GoRoute(
-        path: '/success',
+        path: '/',
         name: 'Home Page',
         builder: (context, state) {
           final username =
@@ -72,6 +73,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => DiaryViewmodel()),
         ChangeNotifierProvider(create: (_) => ArticleViewModel()),
+        ChangeNotifierProvider(create: (_) => DailyDataViewModel()),
       ],
       child: MaterialApp.router(
         title: 'Jourx App',

@@ -16,14 +16,13 @@ class HistoryCard extends StatelessWidget {
 
   Color getCategoryColor(dynamic categoryValue) {
     if (categoryValue == null) {
-      return Colors.grey; // Handle null case
+      return Colors.grey; 
     }
 
     if (categoryValue >= 0 && categoryValue <= 40) {
       return const Color(0xff3BA79E);
     } else if (categoryValue > 40 && categoryValue <= 80) {
-      return const Color(
-          0xffEABE00); // Perbaikan typo: 0xff3EABE0 bukan 0xff3EABE00
+      return const Color(0xffEABE00);
     } else if (categoryValue > 80 && categoryValue <= 100) {
       return const Color(0xffF65A48);
     } else {

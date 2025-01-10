@@ -1,4 +1,5 @@
 import 'package:jourx/data/network/network_api_services.dart';
+import 'package:jourx/model/daily_data.dart';
 import 'package:jourx/model/diary.dart';
 
 class DiaryRepository {
@@ -31,6 +32,37 @@ class DiaryRepository {
     } catch (e) {
       print("Terjadi error: $e");
       throw Exception('Error saat mengambil diary: $e');
+    }
+  }
+
+  Future<List<DailyData>> fetchDailyData(String bearerToken) async {
+    try {
+      dynamic response = await _apiServices.getApiResponse(
+        '/api/diaries/analysis/monthly',
+        bearerToken: bearerToken,
+      );
+
+      print("Respons API diterima: $response");
+
+      if (response != null && response['status'] == 'success') {
+        List<DailyData> result = [];
+
+        if (response['data'] != null && response['data']['daily_data'] is List) {
+          result = (response['data']['daily_data'] as List)
+              .map((e) => DailyData.fromJson(e))
+              .toList();
+        } else {
+          throw Exception('Data daily_data tidak ditemukan');
+        }
+
+        print("Data daily_data berhasil diambil: $result");
+        return result;
+      } else {
+        throw Exception(response['message'] ?? 'Gagal mengambil data daily_data');
+      }
+    } catch (e) {
+      print("Terjadi error: $e");
+      throw Exception('Error saat mengambil data daily_data: $e');
     }
   }
 
