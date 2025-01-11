@@ -101,13 +101,13 @@ class HistoryCard extends StatelessWidget {
                             style: GoogleFonts.poppins(
                               fontWeight: FontWeight.w600,
                               fontSize: 16,
-                              color: Colors.black,
+                              color: Color(0xff1f1f1f),
                             ),
                           ),
                           const SizedBox(height: 4),
                           Text(
                             journalDate != null
-                                ? DateFormat('dd MMM yyyy, HH:mm')
+                                ? DateFormat('EEEE, dd MMMM yyyy', 'id')
                                     .format(journalDate!)
                                 : "",
                             style: GoogleFonts.poppins(

@@ -47,7 +47,7 @@ class _RegisterPageState extends State<RegisterPage> {
               height: MediaQuery.of(context).size.height * 0.4,
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFF0284C7), Color(0xFF00B5D4)],
+                  colors: [Color(0xff0D92F4), Color(0xFF00B5D4)],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -87,7 +87,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.bold,
                             fontSize: 22,
-                            color: Color(0xFF0284C7),
+                            color: Color(0xff0D92F4),
                           ),
                         ),
                         const SizedBox(height: 8.0),
@@ -107,7 +107,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
-                            color: Colors.black,
+                            color: Color(0xff1f1f1f),
                           ),
                         ),
                         const SizedBox(height: 12.0),
@@ -122,7 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
-                            color: Colors.black,
+                            color: Color(0xff1f1f1f),
                           ),
                         ),
                         const SizedBox(height: 12.0),
@@ -137,7 +137,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
-                            color: Colors.black,
+                            color: Color(0xff1f1f1f),
                           ),
                         ),
                         const SizedBox(height: 12.0),
@@ -151,7 +151,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
-                            color: Colors.black,
+                            color: Color(0xff1f1f1f),
                           ),
                         ),
                         const SizedBox(height: 12.0),
@@ -170,7 +170,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
-                            color: Colors.black,
+                            color: Color(0xff1f1f1f),
                           ),
                         ),
                         const SizedBox(height: 12.0),
@@ -205,7 +205,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           width: double.infinity,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFF0284C7),
+                              backgroundColor: Color(0xff0D92F4),
                               padding:
                                   const EdgeInsets.symmetric(vertical: 14.0),
                               shape: RoundedRectangleBorder(
@@ -300,15 +300,15 @@ class _RegisterPageState extends State<RegisterPage> {
                                 style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.normal,
                                     fontSize: 14,
-                                    color: Colors.black), // Default color
+                                    color: Color(0xff1f1f1f)), // Default color
                                 children: const <TextSpan>[
                                   TextSpan(
                                     text: "Sudah punya akun? ",
-                                    style: TextStyle(color: Colors.black),
+                                    style: TextStyle(color: Color(0xff1f1f1f)),
                                   ),
                                   TextSpan(
                                     text: "Masuk di sini.",
-                                    style: TextStyle(color: Color(0xFF0284C7)),
+                                    style: TextStyle(color: Color(0xff0D92F4)),
                                   ),
                                 ],
                               ),

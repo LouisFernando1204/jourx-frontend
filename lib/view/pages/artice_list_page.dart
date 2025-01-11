@@ -25,7 +25,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
         child: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF0284C7), Color(0xFF0273B5)],
+              colors: [Color(0xFF0D92F4), Color(0xFF0D92F4)],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -52,7 +52,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
             switch (value.articleList.status) {
               case Status.loading:
                 return Center(
-                    child: CircularProgressIndicator(color: Color(0xFF0284C7)));
+                    child: CircularProgressIndicator(color: Color(0xFF0D92F4)));
               case Status.error:
                 return Center(
                     child: Text(
@@ -71,7 +71,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
                               style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 18,
-                                  color: Color(0xFF0284C7)),
+                                  color: Color(0xFF0D92F4)),
                             )
                           ],
                         ),
@@ -114,7 +114,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
                                                   child:
                                                       CircularProgressIndicator(
                                                           color: Color(
-                                                              0xFF0284C7)),
+                                                              0xFF0D92F4)),
                                                 );
                                               },
                                               errorBuilder:
@@ -137,7 +137,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
                                                 style: GoogleFonts.poppins(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 16,
-                                                    color: Colors.black),
+                                                    color: Color(0xff1f1f1f)),
                                               ),
                                             ),
                                           ],
@@ -170,7 +170,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
                                           children: [
                                             Container(
                                               decoration: BoxDecoration(
-                                                color: Color(0xFF0284C7),
+                                                color: Color(0xFF0D92F4),
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                               ),
@@ -208,7 +208,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
                                                 fontWeight: FontWeight.normal,
                                                 fontStyle: FontStyle.italic,
                                                 fontSize: 14,
-                                                color: Color(0xFF0284C7),
+                                                color: Color(0xFF0D92F4),
                                               ),
                                             )
                                           ],

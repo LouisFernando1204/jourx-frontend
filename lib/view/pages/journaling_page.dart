@@ -85,13 +85,16 @@ class _JournalingPageState extends State<JournalingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final currentDate = DateTime.now();
+    final formattedDate =
+        DateFormat('EEEE, dd MMMM yyyy', 'id').format(currentDate);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: AppBar(
           automaticallyImplyLeading: false,
           title: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 19.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Center(
               child: Text(
                 'Write Journal',
@@ -118,7 +121,6 @@ class _JournalingPageState extends State<JournalingPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Container(
-                padding: const EdgeInsets.all(24.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,7 +136,7 @@ class _JournalingPageState extends State<JournalingPage> {
                           TextSpan(
                             text: 'you are feeling!',
                             style: GoogleFonts.poppins(
-                              color: Color(0xff0284c7),
+                              color: Color(0xff0D92F4),
                               fontWeight: FontWeight.bold,
                               fontSize: 32,
                             ),
@@ -144,11 +146,12 @@ class _JournalingPageState extends State<JournalingPage> {
                     ),
                     const SizedBox(height: 8.0),
                     Text(
-                      "Jumat, 27 Oktober 2024",
+                      formattedDate,
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.normal,
-                          fontSize: 16,
-                          color: Colors.grey[400]),
+                        fontWeight: FontWeight.normal,
+                        fontSize: 16,
+                        color: Colors.grey[400],
+                      ),
                     ),
                     const SizedBox(height: 24.0),
                     Container(
@@ -185,8 +188,8 @@ class _JournalingPageState extends State<JournalingPage> {
                               right: 10,
                               child: IconButton(
                                 icon: Icon(
-                                  _isListening ? Icons.mic_off : Icons.mic,
-                                  color: Color(0xff0284c7),
+                                  _isListening ? Icons.mic : Icons.mic_off,
+                                  color: Color(0xff0D92F4),
                                 ),
                                 onPressed: () {
                                   if (_isListening) {
@@ -211,9 +214,9 @@ class _JournalingPageState extends State<JournalingPage> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: _isButtonEnabled
-                              ? Color(0xff0284c7)
+                              ? Color(0xff0D92F4)
                               : Colors.orange[200],
-                          padding: const EdgeInsets.symmetric(vertical: 14.0),
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
                           ),

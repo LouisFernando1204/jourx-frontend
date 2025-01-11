@@ -34,14 +34,51 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ... (Judul dan sapaan)
-              Text(
-                "Daily Reflection",
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.normal,
-                  fontSize: 16,
-                  color: Colors.grey[500],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Daily Reflection",
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.normal,
+                      fontSize: 16,
+                      color: Colors.grey[500],
+                    ),
+                  ),
+                  PopupMenuButton<int>(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    onSelected: (value) {
+                      if (value == 1) {
+                        Navigator.pushReplacementNamed(context, '/login');
+                      }
+                    },
+                    itemBuilder: (context) => [
+                      PopupMenuItem<int>(
+                        value: 3,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(3),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 12.0),
+                          child: Center(
+                            child: Text(
+                              'Logout',
+                              style: GoogleFonts.poppins(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                    icon: const Icon(Icons.more_vert, color: Colors.grey),
+                  ),
+                ],
               ),
               const SizedBox(height: 5),
               Text(
@@ -49,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.normal,
                   fontSize: 32,
-                  color: Colors.black,
+                  color: Color(0xff1f1f1f),
                 ),
               ),
               Text.rich(
@@ -58,12 +95,12 @@ class _HomePageState extends State<HomePage> {
                   style: GoogleFonts.poppins(
                       fontWeight: FontWeight.normal,
                       fontSize: 32,
-                      color: Colors.black),
+                      color: Color(0xff1f1f1f)),
                   children: <TextSpan>[
                     TextSpan(
                       text: 'current emotions?',
                       style: GoogleFonts.poppins(
-                        color: Color(0xff0284c7),
+                        color: Color(0xff0D92F4),
                         fontWeight: FontWeight.bold,
                         fontSize: 32,
                       ),
@@ -85,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                 },
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(double.infinity, 60),
-                  backgroundColor: const Color(0xff0284c7),
+                  backgroundColor: const Color(0xff0D92F4),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -94,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      'Refleksikan Hari Mu',
+                      'Reflex Your Day',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
@@ -106,6 +143,8 @@ class _HomePageState extends State<HomePage> {
                       child: const Icon(
                         Icons.arrow_forward,
                         color: Colors.white,
+                        size: 25,
+                  
                       ),
                     ),
                   ],
@@ -117,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w500,
                   fontSize: 18,
-                  color: Colors.black,
+                  color: Color(0xff1f1f1f),
                 ),
               ),
               const SizedBox(height: 10),
@@ -127,7 +166,7 @@ class _HomePageState extends State<HomePage> {
                     case Status.loading:
                       return const Center(
                           child: CircularProgressIndicator(
-                              color: Color(0xFF0284C7)));
+                              color: Color(0xFF0D92F4)));
                     case Status.error:
                       return Center(
                           child: Text('Error: ${viewModel.diaryList.message}'));
@@ -167,13 +206,21 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               SizedBox(height: 20),
+              Text(
+                "New Articles",
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18,
+                  color: Color(0xff1f1f1f),
+                ),
+              ),
               Consumer<ArticleViewModel>(
                 builder: (context, value, _) {
                   switch (value.articleList.status) {
                     case Status.loading:
                       return Center(
                           child: CircularProgressIndicator(
-                              color: Color(0xFF0284C7)));
+                              color: Color(0xFF0D92F4)));
                     case Status.error:
                       return Center(
                           child: Text(
@@ -185,14 +232,6 @@ class _HomePageState extends State<HomePage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(
-                                  "New Articles",
-                                  style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                  ),
-                                ),
                               ],
                             ),
                             SizedBox(height: 10),
@@ -239,7 +278,7 @@ class _HomePageState extends State<HomePage> {
                                                         child:
                                                             CircularProgressIndicator(
                                                                 color: Color(
-                                                                    0xFF0284C7)),
+                                                                    0xFF0D92F4)),
                                                       );
                                                     },
                                                     errorBuilder: (context,
@@ -266,7 +305,7 @@ class _HomePageState extends State<HomePage> {
                                                                       .bold,
                                                               fontSize: 16,
                                                               color:
-                                                                  Colors.black),
+                                                                  Color(0xff1f1f1f)),
                                                     ),
                                                   ),
                                                 ],
@@ -305,7 +344,7 @@ class _HomePageState extends State<HomePage> {
                                                 children: [
                                                   Container(
                                                     decoration: BoxDecoration(
-                                                      color: Color(0xFF0284C7),
+                                                      color: Color(0xFF0D92F4),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               8.0),
@@ -351,7 +390,7 @@ class _HomePageState extends State<HomePage> {
                                                       fontStyle:
                                                           FontStyle.italic,
                                                       fontSize: 14,
-                                                      color: Color(0xFF0284C7),
+                                                      color: Color(0xFF0D92F4),
                                                     ),
                                                   )
                                                 ],

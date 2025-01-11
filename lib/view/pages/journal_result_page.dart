@@ -36,6 +36,7 @@ class _JournalResultPageState extends State<JournalResultPage> {
             style: GoogleFonts.poppins(
               fontWeight: FontWeight.bold,
               fontSize: 16,
+              color: Color(0xff1f1f1f),
             ),
           ),
         ),
@@ -89,13 +90,13 @@ class _JournalResultPageState extends State<JournalResultPage> {
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.normal,
                   fontSize: 36,
-                  color: Colors.black,
+                  color: Color(0xff1f1f1f),
                 ),
                 children: <TextSpan>[
                   TextSpan(
                     text: 'emotions',
                     style: GoogleFonts.poppins(
-                      color: Color(0xff0284c7),
+                      color: Color(0xff0D92F4),
                       fontWeight: FontWeight.bold,
                       fontSize: 36,
                     ),
@@ -110,7 +111,7 @@ class _JournalResultPageState extends State<JournalResultPage> {
             width: double.infinity,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: const Color(0xff0284c7),
+              color: const Color(0xff0D92F4),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
@@ -124,12 +125,12 @@ class _JournalResultPageState extends State<JournalResultPage> {
           const SizedBox(height: 25.0),
           Center(
             child: Text(
-              'Stress Level: ${diary.stressLevel ?? 'Unknown'}',
+              'Stress Level',
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
                 fontWeight: FontWeight.w500,
                 fontSize: 16,
-                color: Colors.black,
+                color: Color(0xff1f1f1f),
               ),
             ),
           ),
@@ -151,7 +152,7 @@ class _JournalResultPageState extends State<JournalResultPage> {
                 child: Container(
                   width: MediaQuery.of(context).size.width *
                       0.5,
-                  height: 30, 
+                  height: 25, 
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(
                         12), 
@@ -163,7 +164,7 @@ class _JournalResultPageState extends State<JournalResultPage> {
                       LinearProgressIndicator(
                         value: stressLevel /
                             100, 
-                        minHeight: 30,
+                        minHeight: 25,
                         backgroundColor: Colors
                             .transparent,
                         valueColor: AlwaysStoppedAnimation<Color>(
@@ -217,7 +218,7 @@ class _JournalResultPageState extends State<JournalResultPage> {
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xff0284c7),
+                backgroundColor: const Color(0xff0D92F4),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),

@@ -28,7 +28,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
         child: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF0284C7), Color(0xFF0273B5)],
+              colors: [Color(0xFF0D92F4), Color(0xFF0D92F4)],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -64,7 +64,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
             switch (value.articleDetail.status) {
               case Status.loading:
                 return Center(
-                  child: CircularProgressIndicator(color: Color(0xFF0284C7)),
+                  child: CircularProgressIndicator(color: Color(0xFF0D92F4)),
                 );
               case Status.error:
                 return Center(
@@ -95,7 +95,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                 return Align(
                                   alignment: Alignment.center,
                                   child: CircularProgressIndicator(
-                                      color: Color(0xFF0284C7)),
+                                      color: Color(0xFF0D92F4)),
                                 );
                               },
                               errorBuilder: (context, error, stackTrace) {
@@ -115,7 +115,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                 style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18,
-                                    color: Colors.black),
+                                    color: Color(0xff1f1f1f)),
                                 textAlign: TextAlign.left,
                               ),
                             ),
@@ -167,7 +167,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                           children: [
                             Container(
                               decoration: BoxDecoration(
-                                color: Color(0xFF0284C7),
+                                color: Color(0xFF0D92F4),
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               padding: const EdgeInsets.symmetric(

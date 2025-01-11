@@ -39,6 +39,7 @@ class _AiRecomendationPageState extends State<AiRecomendationPage> {
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
+                  color: Color(0xff1f1f1f)
                 ),
               ),
             ),
@@ -87,10 +88,9 @@ class _AiRecomendationPageState extends State<AiRecomendationPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(diary.content!),
                           Text(
                             diary.createdAt != null
-                                ? DateFormat('dd MMM yyyy, HH:mm')
+                                ? DateFormat('EEEE, dd MMMM yyyy', 'id')
                                     .format(diary.createdAt!)
                                 : "",
                             style: GoogleFonts.poppins(
@@ -106,13 +106,13 @@ class _AiRecomendationPageState extends State<AiRecomendationPage> {
                               style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.normal,
                                 fontSize: 36,
-                                color: Colors.black,
+                                color: Color(0xff1f1f1f),
                               ),
                               children: <TextSpan>[
                                 TextSpan(
                                   text: diary.emotion,
                                   style: GoogleFonts.poppins(
-                                    color: Color(0xff0284c7),
+                                    color: Color(0xff0D92F4),
                                     fontWeight: FontWeight.bold,
                                     fontSize: 36,
                                   ),
@@ -120,12 +120,13 @@ class _AiRecomendationPageState extends State<AiRecomendationPage> {
                               ],
                             ),
                           ),
-                          const SizedBox(height: 8.0),
+
+                          const SizedBox(height: 14.0),
                           Container(
                             height: 300,
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              color: Color(0xff0284c7),
+                              color: Color(0xff0D92F4),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Stack(
@@ -165,7 +166,7 @@ class _AiRecomendationPageState extends State<AiRecomendationPage> {
                               style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 16,
-                                  color: Colors.black),
+                                  color: Color(0xff1f1f1f)),
                             ),
                           ),
                           const SizedBox(height: 2.0),
@@ -202,7 +203,7 @@ class _AiRecomendationPageState extends State<AiRecomendationPage> {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff0284c7),
+                          backgroundColor: const Color(0xff0D92F4),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),

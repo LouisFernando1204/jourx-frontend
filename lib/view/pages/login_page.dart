@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Color(0xFF0284C7),
+                    Color(0xff0D92F4),
                     Color(0xFF00B5D4)
                   ], // Ganti dengan gradien cyan
                   begin: Alignment.topCenter,
@@ -127,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                             style: GoogleFonts.poppins(
                               fontWeight: FontWeight.bold,
                               fontSize: 22,
-                              color: Color(0xFF0284C7),
+                              color: Color(0xff0D92F4),
                             ),
                           ),
                           const SizedBox(height: 8.0),
@@ -145,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                             style: GoogleFonts.poppins(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Colors.black,
+                              color: Color(0xff1f1f1f),
                             ),
                           ),
                           const SizedBox(height: 12.0),
@@ -170,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                             style: GoogleFonts.poppins(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Colors.black,
+                              color: Color(0xff1f1f1f),
                             ),
                           ),
                           const SizedBox(height: 12.0),
@@ -195,7 +195,7 @@ class _LoginPageState extends State<LoginPage> {
                             width: double.infinity,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFF0284C7),
+                                backgroundColor: Color(0xff0D92F4),
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 14.0),
                                 shape: RoundedRectangleBorder(
@@ -275,7 +275,7 @@ class _LoginPageState extends State<LoginPage> {
                               style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14.0,
-                                  color: Colors.black),
+                                  color: Color(0xff1f1f1f)),
                             ),
                           ),
                           const SizedBox(height: 16.0),
@@ -399,16 +399,16 @@ class _LoginPageState extends State<LoginPage> {
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.normal,
                                       fontSize: 14,
-                                      color: Colors.black), // Default color
+                                      color: Color(0xff1f1f1f)), // Default color
                                   children: const <TextSpan>[
                                     TextSpan(
                                       text: "Belum punya akun? ",
-                                      style: TextStyle(color: Colors.black),
+                                      style: TextStyle(color: Color(0xff1f1f1f)),
                                     ),
                                     TextSpan(
                                       text: "Daftar di sini.",
                                       style:
-                                          TextStyle(color: Color(0xFF0284C7)),
+                                          TextStyle(color: Color(0xff0D92F4)),
                                     ),
                                   ],
                                 ),

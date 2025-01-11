@@ -42,7 +42,7 @@ class _MainMenuState extends State<MainMenu> {
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF0284C7),
+        backgroundColor: const Color(0xFF0D92F4),
         onTap: _onItemTapped,
         currentIndex: _selectedIndex,
         items: const [
