@@ -2,8 +2,7 @@ part of 'pages.dart';
 
 class MainMenu extends StatefulWidget {
   const MainMenu({super.key, required this.username, this.user, this.token});
-  final String bearerToken =
-      "8|A8bhsL6zeSvh3sf3jxU0c9WNzuFnSKgkX50jVnXFbcfc93cd";
+  // final String bearerToken = this.token;
   final String username;
 
   final Model.User? user;
@@ -24,8 +23,8 @@ class _MainMenuState extends State<MainMenu> {
     print('User: ${widget.user}');
     print('Token: ${widget.token}');
     _pages = [
-      HomePage(bearerToken: widget.bearerToken, username: widget.username),
-      HistoryPage(bearerToken: widget.bearerToken),
+      HomePage(bearerToken: widget.token.toString(), username: widget.username.toString()),
+      HistoryPage(bearerToken: widget.token.toString()),
       ArticleListPage()
     ];
   }
@@ -37,6 +36,7 @@ class _MainMenuState extends State<MainMenu> {
   }
 
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedIndex],

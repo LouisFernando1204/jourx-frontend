@@ -25,7 +25,7 @@ void main() async {
   final GoRouter router = GoRouter(
     routes: [
       GoRoute(
-        path: '/sucess',
+        path: '/',
         name: 'Login Page',
         builder: (context, state) => const LoginPage(),
       ),
@@ -35,7 +35,7 @@ void main() async {
         builder: (context, state) => const RegisterPage(),
       ),
       GoRoute(
-        path: '/',
+        path: '/success',
         name: 'Home Page',
         builder: (context, state) {
           final username =

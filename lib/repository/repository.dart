@@ -6,7 +6,7 @@ import 'package:jourx/model/model.dart';
 import 'package:jourx/data/response/status.dart';
 
 class Repository {
-  final apiUrl = "https://jourx.dickyyyy.site";
+  final apiUrl = "https://jourx.fun";
   final _apiServices = NetworkApiServices();
   
 
@@ -211,7 +211,7 @@ class Repository {
       'content': "halo",
     };
 
-      dynamic response = await _apiServices.postApiResponse('/api/logout', body,bearerToken: token);
+      dynamic response = await _apiServices.postApiResponse('/api/logout', body, bearerToken: token);
 
       if (response.statusCode == 200) {
         return {

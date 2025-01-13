@@ -52,8 +52,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                     onSelected: (value) async {
                       if (value == 3) { 
-                        final result = await _logoutViewModel.logout(widget.bearerToken);
-                        context.go('/sucess');
+                        await _logoutViewModel.logout(widget.bearerToken);
+                        context.go('/register');
                       }
                     },
                     itemBuilder: (context) => [
