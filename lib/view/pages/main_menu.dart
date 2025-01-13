@@ -3,7 +3,7 @@ part of 'pages.dart';
 class MainMenu extends StatefulWidget {
   const MainMenu({super.key, required this.username, this.user, this.token});
   final String bearerToken =
-      '1|TBHGYu1mVtGg3zwtnA4vcoi0O0iejmlFSFbvHhUx6106c8a4';
+      "8|A8bhsL6zeSvh3sf3jxU0c9WNzuFnSKgkX50jVnXFbcfc93cd";
   final String username;
 
   final Model.User? user;

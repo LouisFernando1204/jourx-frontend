@@ -1,11 +1,14 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:jourx/data/network/network_api_services.dart';
 import 'package:jourx/model/model.dart';
 import 'package:jourx/data/response/status.dart';
 
 class Repository {
   final apiUrl = "https://jourx.dickyyyy.site";
+  final _apiServices = NetworkApiServices();
+  
 
   Future<Map<String, dynamic>> registerAccount(String name, String email,
       String password, String ttl, String gender) async {
@@ -192,6 +195,42 @@ class Repository {
         'user': null,
         'token': null,
         'message': 'Validation failed!'
+      };
+    }
+  }
+
+  Future<Map<String, dynamic>> logoutAccount(String token) async {
+    try {
+      if (token.isEmpty) {
+        return {
+          'status': Status.error,
+          'message': 'No token found. User might already be logged out.'
+        };
+      }
+      final Map<String, dynamic> body = {
+      'content': "halo",
+    };
+
+      dynamic response = await _apiServices.postApiResponse('/api/logout', body,bearerToken: token);
+
+      if (response.statusCode == 200) {
+        return {
+          'status': Status.completed,
+          'message': 'Logout berhasil!'
+        };
+      } else {
+        var jsonResponse = jsonDecode(response.body);
+        var responseMessage = jsonResponse['message'] ?? 'Logout failed!';
+
+        return {
+          'status': Status.error,
+          'message': responseMessage
+        };
+      }
+    } catch (error) {
+      return {
+        'status': Status.error,
+        'message': error.toString()
       };
     }
   }

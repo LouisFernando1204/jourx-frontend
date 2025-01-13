@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+     final LogoutViewModel _logoutViewModel = LogoutViewModel();
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Padding(
@@ -49,9 +50,10 @@ class _HomePageState extends State<HomePage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    onSelected: (value) {
-                      if (value == 1) {
-                        Navigator.pushReplacementNamed(context, '/login');
+                    onSelected: (value) async {
+                      if (value == 3) { 
+                        final result = await _logoutViewModel.logout(widget.bearerToken);
+                        context.go('/sucess');
                       }
                     },
                     itemBuilder: (context) => [

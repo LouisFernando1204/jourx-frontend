@@ -6,6 +6,7 @@ import 'package:jourx/view/widgets/widgets.dart';
 import 'package:jourx/view_model/article_viewmodel.dart';
 import 'package:jourx/view_model/daily_data_viewmodel.dart';
 import 'package:jourx/view_model/diary_viewmodel.dart';
+import 'package:jourx/view_model/logout_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:jourx/view_model/login_viewmodel.dart';
 import 'package:google_fonts/google_fonts.dart';
