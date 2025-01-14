@@ -110,7 +110,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
                                           child: AspectRatio(
                                             aspectRatio: 16 / 10,
                                             child: Image.network(
-                                              article.imageUrl!,
+                                              "https://images.unsplash.com/photo-1620147461831-a97b99ade1d3?q=80&w=3027&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                                               fit: BoxFit.cover,
                                               loadingBuilder: (context, child,
                                                   loadingProgress) {
