@@ -274,7 +274,7 @@ class _HomePageState extends State<HomePage> {
                                                 child: AspectRatio(
                                                   aspectRatio: 16 / 10,
                                                   child: Image.network(
-                                                    "https://images.unsplash.com/photo-1620147461831-a97b99ade1d3?q=80&w=3027&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                                                    "https://jourx.fun/storage/${article.imageUrl!}",
                                                     fit: BoxFit.cover,
                                                     loadingBuilder: (context,
                                                         child,
