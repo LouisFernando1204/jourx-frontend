@@ -21,6 +21,11 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    String removeHtmlTags(String htmlString) {
+      final document = parse(htmlString);
+      return document.body?.text ?? "";
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: PreferredSize(
@@ -73,7 +78,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                   ),
                 );
               case Status.completed:
-                final article = value.articleDetail.data!; // Fetch article data
+                final article = value.articleDetail.data!; 
                 return SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Padding(
@@ -87,7 +92,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                             aspectRatio: 16 / 10,
                             child: Image.network(
                               article
-                                  .imageUrl!, // Replace with actual article image URL
+                                  .imageUrl!,
                               fit: BoxFit.cover,
                               loadingBuilder:
                                   (context, child, loadingProgress) {
@@ -149,7 +154,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                             Expanded(
                               flex: 1,
                               child: Text(
-                                article.content!,
+                                removeHtmlTags(article.content!),
                                 style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.normal,
                                   fontSize: 16,

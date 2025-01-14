@@ -42,6 +42,7 @@ dependencies:
   go_router: ^14.6.3
   google_fonts: ^6.2.1
   google_sign_in: ^6.2.2
+  html: ^0.15.5
   http: ^1.2.2
   intl: ^0.20.1
   permission_handler: ^11.3.1

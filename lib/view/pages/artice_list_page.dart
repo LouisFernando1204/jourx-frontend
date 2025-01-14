@@ -18,6 +18,11 @@ class _ArticleListPageState extends State<ArticleListPage> {
 
   @override
   Widget build(BuildContext context) {
+      String removeHtmlTags(String htmlString) {
+      final document = parse(htmlString);
+      return document.body?.text ?? "";
+    }
+    
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: PreferredSize(
@@ -31,9 +36,10 @@ class _ArticleListPageState extends State<ArticleListPage> {
             ),
           ),
           child: AppBar(
+            automaticallyImplyLeading: false, 
             backgroundColor:
-                Colors.transparent, // Transparan untuk menampilkan gradien
-            elevation: 0, // Hilangkan bayangan
+                Colors.transparent, 
+            elevation: 0, 
             title: Text(
               "Articles",
               style: GoogleFonts.poppins(
@@ -84,7 +90,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
                             var article = value.articleList.data![index];
                             return GestureDetector(
                               onTap: () {
-                                context.go('/article/${article.slug}');
+                                context.push('/article/${article.slug}');
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(bottom: 8.0),
@@ -150,7 +156,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
                                             Expanded(
                                               flex: 1,
                                               child: Text(
-                                                article.content!,
+                                                removeHtmlTags(article.content!),
                                                 style: GoogleFonts.poppins(
                                                     fontWeight:
                                                         FontWeight.normal,

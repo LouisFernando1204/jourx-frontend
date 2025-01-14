@@ -4,7 +4,8 @@ class HomePage extends StatefulWidget {
   final String bearerToken;
   final String username;
 
-  const HomePage({super.key, required this.bearerToken, required this.username});
+  const HomePage(
+      {super.key, required this.bearerToken, required this.username});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -25,7 +26,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-     final LogoutViewModel _logoutViewModel = LogoutViewModel();
+    final LogoutViewModel _logoutViewModel = LogoutViewModel();
+
+    String removeHtmlTags(String htmlString) {
+      final document = parse(htmlString);
+      return document.body?.text ?? "";
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Padding(
@@ -51,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     onSelected: (value) async {
-                      if (value == 3) { 
+                      if (value == 3) {
                         await _logoutViewModel.logout(widget.bearerToken);
                         context.go('/register');
                       }
@@ -146,7 +153,6 @@ class _HomePageState extends State<HomePage> {
                         Icons.arrow_forward,
                         color: Colors.white,
                         size: 25,
-                  
                       ),
                     ),
                   ],
@@ -233,8 +239,7 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                              ],
+                              children: [],
                             ),
                             SizedBox(height: 10),
                             Column(
@@ -247,7 +252,7 @@ class _HomePageState extends State<HomePage> {
                                           index];
                                   return GestureDetector(
                                     onTap: () {
-                                      context.go('/article/${article.slug}');
+                                      context.push('/article/${article.slug}');
                                     },
                                     child: Padding(
                                       padding:
@@ -306,8 +311,8 @@ class _HomePageState extends State<HomePage> {
                                                                   FontWeight
                                                                       .bold,
                                                               fontSize: 16,
-                                                              color:
-                                                                  Color(0xff1f1f1f)),
+                                                              color: Color(
+                                                                  0xff1f1f1f)),
                                                     ),
                                                   ),
                                                 ],
@@ -320,7 +325,8 @@ class _HomePageState extends State<HomePage> {
                                                   Expanded(
                                                     flex: 1,
                                                     child: Text(
-                                                      article.content!,
+                                                      removeHtmlTags(
+                                                          article.content!),
                                                       style:
                                                           GoogleFonts.poppins(
                                                               fontWeight:

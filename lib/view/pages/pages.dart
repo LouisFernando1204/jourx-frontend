@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:html/parser.dart';
 import 'package:jourx/data/response/status.dart';
 import 'package:jourx/model/daily_data.dart';
 import 'package:jourx/model/diary.dart';
