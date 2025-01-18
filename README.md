@@ -27,10 +27,15 @@ Welcome to **JourX**, an innovative journaling platform designed to help users e
 
 ## 🌟 See JourX in Action! 📸  
 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">  
-    <img src="https://drive.google.com/uc?id=" alt="Screenshot 1" style="width: 30%;"/>  
-    <img src="https://drive.google.com/uc?id=" alt="Screenshot 2" style="width: 30%;"/>  
-    <img src="https://drive.google.com/uc?id=" alt="Screenshot 3" style="width: 30%;"/>  
-    <img src="https://drive.google.com/uc?id=" alt="Screenshot 4" style="width: 30%;"/>  
+    <img src="https://drive.google.com/uc?id=1Zt2qq68tZDkfQi1ZvDjvwT3Vl_5V7eQq" alt="Screenshot 1" style="width: 30%;"/>  
+    <img src="https://drive.google.com/uc?id=15RHPV-OSJ54VVh4K3LZMFMHFEK8bF3Dv" alt="Screenshot 2" style="width: 30%;"/>  
+    <img src="https://drive.google.com/uc?id=16iD103dSwKOsMpnX_CZtahkyYE5s3fqY" alt="Screenshot 3" style="width: 30%;"/>  
+    <img src="https://drive.google.com/uc?id=1eV7PnE7RADxKf5ouAlRI5MYB08OWqo3f" alt="Screenshot 4" style="width: 30%;"/> 
+    <img src="https://drive.google.com/uc?id=178SqeHsyUrLSGFUC-zIgRmXJq2Q4s7U0" alt="Screenshot 5" style="width: 30%;"/> 
+    <img src="https://drive.google.com/uc?id=1d1hLWegahLYPMJ-uE2it1fFtf7m7KR_p" alt="Screenshot 6" style="width: 30%;"/> 
+    <img src="https://drive.google.com/uc?id=1QCtrN4cPCEfvJvBJls74-Z5_qjaT7W0Z" alt="Screenshot 7" style="width: 30%;"/> 
+    <img src="https://drive.google.com/uc?id=12hx5IsjOEVK8XLsZbJ9gGNlJ9OGGMzad" alt="Screenshot 8" style="width: 30%;"/> 
+    <img src="https://drive.google.com/uc?id=1hEsebXti01-BAePCFZ_0S2ajR-x5Kvut" alt="Screenshot 9" style="width: 30%;"/> 
 </div>  
 
 ## 🤝 Contributors  
